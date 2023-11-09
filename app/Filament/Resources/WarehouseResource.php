@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SubcategoryResource\Pages;
-use App\Filament\Resources\SubcategoryResource\RelationManagers;
-use App\Models\Subcategory;
+use App\Filament\Resources\WarehouseResource\Pages;
+use App\Filament\Resources\WarehouseResource\RelationManagers;
+use App\Models\Warehouse;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,13 +13,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SubcategoryResource extends Resource
+class WarehouseResource extends Resource
 {
-    protected static ?string $model = Subcategory::class;
+    protected static ?string $model = Warehouse::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationLabel = 'Subcategoria';
+    protected static ?string $navigationLabel = 'Depositos';
 
     protected static ?string $navigationGroup = 'Configuracion Almacen';
 
@@ -27,13 +27,11 @@ class SubcategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('category_id')
-                    ->relationship('category', 'name')
-                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\TextInput::make('location')
+                    ->required()
                     ->maxLength(255),
             ]);
     }
@@ -42,12 +40,9 @@ class SubcategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('category.name')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('description')
+                Tables\Columns\TextColumn::make('location')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -81,9 +76,9 @@ class SubcategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSubcategories::route('/'),
-            'create' => Pages\CreateSubcategory::route('/create'),
-            'edit' => Pages\EditSubcategory::route('/{record}/edit'),
+            'index' => Pages\ListWarehouses::route('/'),
+            'create' => Pages\CreateWarehouse::route('/create'),
+            'edit' => Pages\EditWarehouse::route('/{record}/edit'),
         ];
     }
 }

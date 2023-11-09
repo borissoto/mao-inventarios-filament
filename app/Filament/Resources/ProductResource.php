@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
-use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Filament\Forms;
@@ -22,15 +21,17 @@ class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-gift';
+
+    protected static ?string $navigationLabel = 'Productos';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                // Forms\Components\Select::make('user_id')
-                //     ->relationship('user', 'name')
-                //     ->required(),
+                Forms\Components\Select::make('user_id')
+                    ->relationship('user', 'name')
+                    ->required(),
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'name')
                     ->preload()
@@ -44,22 +45,29 @@ class ProductResource extends Resource
                     ->searchable()
                     ->live()
                     ->required(),
+                Forms\Components\Select::make('unit_id')
+                    ->relationship('unit', 'name')
+                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('description')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('price')
+                Forms\Components\TextInput::make('code')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\FileUpload::make('img_url')
-                    ->image()   
-                    ->imageEditor()
-                    ->imageEditorMode(1)
-                    ->openable()
-                    ->imageEditorViewportWidth('300')
-                    ->imageEditorViewportHeight('400')
+                Forms\Components\TextInput::make('brand')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('minimum')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('type')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\FileUpload::make('image_url')
+                    ->image()
                     ->required(),
             ]);
     }
@@ -71,20 +79,27 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('category_id')
+                Tables\Columns\TextColumn::make('category.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('subcategory.name')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('unit.name')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('price')
+                Tables\Columns\TextColumn::make('code')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('img_url')
+                Tables\Columns\TextColumn::make('brand')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('minimum')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->searchable(),
+                Tables\Columns\ImageColumn::make('image_url'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SubcategoryResource\Pages;
-use App\Filament\Resources\SubcategoryResource\RelationManagers;
-use App\Models\Subcategory;
+use App\Filament\Resources\UnitResource\Pages;
+use App\Filament\Resources\UnitResource\RelationManagers;
+use App\Models\Unit;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,13 +13,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SubcategoryResource extends Resource
+class UnitResource extends Resource
 {
-    protected static ?string $model = Subcategory::class;
+    protected static ?string $model = Unit::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationLabel = 'Subcategoria';
+    protected static ?string $navigationLabel = 'Unidad de Medida';
 
     protected static ?string $navigationGroup = 'Configuracion Almacen';
 
@@ -27,13 +27,11 @@ class SubcategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('category_id')
-                    ->relationship('category', 'name')
-                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\TextInput::make('abbreviation')
+                    ->required()
                     ->maxLength(255),
             ]);
     }
@@ -42,12 +40,9 @@ class SubcategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('category.name')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('description')
+                Tables\Columns\TextColumn::make('abbreviation')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -81,9 +76,9 @@ class SubcategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSubcategories::route('/'),
-            'create' => Pages\CreateSubcategory::route('/create'),
-            'edit' => Pages\EditSubcategory::route('/{record}/edit'),
+            'index' => Pages\ListUnits::route('/'),
+            'create' => Pages\CreateUnit::route('/create'),
+            'edit' => Pages\EditUnit::route('/{record}/edit'),
         ];
     }
 }
