@@ -10,10 +10,13 @@ class ListSubcategories extends ListRecords
 {
     protected static string $resource = SubcategoryResource::class;
 
+    protected static ?string $title = 'Subcategorias';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Nueva subcategoria'),
         ];
     }
 }

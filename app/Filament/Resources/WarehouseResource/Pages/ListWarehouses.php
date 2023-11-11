@@ -10,10 +10,13 @@ class ListWarehouses extends ListRecords
 {
     protected static string $resource = WarehouseResource::class;
 
+    protected static ?string $title = 'Deposito';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Nuevo deposito'),
         ];
     }
 }

@@ -10,10 +10,13 @@ class ListIncomes extends ListRecords
 {
     protected static string $resource = IncomeResource::class;
 
+    protected static ?string $title = 'Comprobantes de Ingreso';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Nuevo comprobante ingreso'),
         ];
     }
 }

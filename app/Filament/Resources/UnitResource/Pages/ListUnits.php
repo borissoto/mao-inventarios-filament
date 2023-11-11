@@ -10,10 +10,13 @@ class ListUnits extends ListRecords
 {
     protected static string $resource = UnitResource::class;
 
+    protected static ?string $title = 'Unidad de Medida';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Nueva unidad de medida'),
         ];
     }
 }

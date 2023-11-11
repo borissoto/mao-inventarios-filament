@@ -20,7 +20,7 @@ class PurchaseResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-shopping-cart';
 
-    protected static ?string $navigationLabel = 'Compras';
+    protected static ?string $navigationLabel = 'Productos ingresados';
 
     protected static ?string $navigationGroup = 'Ingresos Almacen';
 

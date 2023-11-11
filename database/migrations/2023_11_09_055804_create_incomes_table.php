@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('code');
             $table->timestamp('date');
             $table->string('country');
+            $table->string('season');
             $table->unsignedBigInteger('warehouse_id');
             $table->foreign('warehouse_id')->references('id')->on('warehouses');
             $table->unsignedBigInteger('user_id');

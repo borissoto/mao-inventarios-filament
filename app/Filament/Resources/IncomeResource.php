@@ -46,7 +46,7 @@ class IncomeResource extends Resource
                     ->label('Nro')
                     ->required()
                     ->numeric(),
-                Forms\Components\DateTimePicker::make('date')
+                Forms\Components\DatePicker::make('date')
                     ->required(),
                 Forms\Components\Select::make('country')
                     ->label('Pais')
