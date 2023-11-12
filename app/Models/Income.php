@@ -24,4 +24,8 @@ class Income extends Model
     public function purchases(): HasMany{
         return $this->hasMany(Purchase::class);
     }
+
+    public function seasons(): BelongsTo{
+        return $this->belongsTo(Season::class);
+    }
 }
