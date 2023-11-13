@@ -28,7 +28,7 @@ class IncomeResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('type')
-                    ->label('Tipo')
+                    ->label('Tipo Comp')
                     ->options([
                         'Factura' => 'Factura',
                         'Recibo' => 'Recibo',
@@ -67,21 +67,27 @@ class IncomeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('warehouse_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Deposito')
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('type')
+                    ->label('Tipo Comp')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('code')
+                    ->label('Nro')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date')
-                    ->dateTime()
+                    ->label('Fecha ingreso')
+                    ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('country')
-                    ->searchable(),
+                    ->label('Pais')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Registrado por')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

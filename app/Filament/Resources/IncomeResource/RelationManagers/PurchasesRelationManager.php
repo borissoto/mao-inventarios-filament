@@ -53,7 +53,7 @@ class PurchasesRelationManager extends RelationManager
                         'Desarmada' => 'Desarmada'
                     ])
                     ->required(),
-                Forms\Components\DateTimePicker::make('expiration_date')
+                Forms\Components\DatePicker::make('expiration_date')
                     ->label('Expira')    
                     ->required(),
                 Forms\Components\TextInput::make('total_cost')

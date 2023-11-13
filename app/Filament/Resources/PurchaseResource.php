@@ -29,47 +29,62 @@ class PurchaseResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('income_id')
+                    ->label('Id Comprobante')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('product_id')
+                    ->label('Producto')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('unit_id')
+                    ->label('Unidad')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('quantity')
+                    ->label('Cantidad')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('pieces')
+                    ->label('Piezas')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('weight')
+                    ->label('Peso')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('dimensions')
+                    ->label('Dimensiones')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('item_no')
+                    ->label('Nro Item')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('type')
+                    ->label('Abierto')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\DateTimePicker::make('expiration_date')
+                    ->label('Expira')
                     ->required(),
                 Forms\Components\TextInput::make('total_cost')
+                    ->label('Costo total')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('unit_price')
+                    ->label('Costo unitario')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('sell_price')
+                    ->label('Precio unitario')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('box_price')
+                    ->label('Precio docena')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('wholesale_price')
+                    ->label('Precio x mayor')
                     ->required()
                     ->numeric(),
             ]);
@@ -80,56 +95,74 @@ class PurchaseResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('income_id')
+                    ->label('Id Comprobante')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('product.name')
+                    ->label('Producto')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('product.image_url')
+                    ->label('Imagen')
                     ->label('Imagen'),
                 Tables\Columns\TextColumn::make('unit.name')
+                    ->label('Unidad')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->label('Cantidad')
                     ->summarize(Sum::make()->label('Total'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('pieces')
+                    ->label('Piezas')
                     ->summarize(Sum::make()->label('Total Piezas'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('weight')
+                    ->label('Peso')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('dimensions')
+                    ->label('Dimensiones')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('item_no')
+                    ->label('Nro Item')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
+                    ->label('Abierto')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('expiration_date')
+                    ->label('Expira')
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_cost')
+                    ->label('Costo total')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('unit_price')
+                    ->label('Costo unitario')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('sell_price')
+                    ->label('Precio unitario')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('box_price')
+                    ->label('Precio docena')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('wholesale_price')
+                    ->label('Precio x mayor')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

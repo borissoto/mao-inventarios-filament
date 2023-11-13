@@ -20,13 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('subcategory_id');
             $table->foreign('subcategory_id')->references('id')->on('subcategories');
             $table->string('name');
-            $table->string('description');
-            $table->string('code');
-            $table->string('brand');
-            $table->unsignedBigInteger('unit_id');
-            $table->foreign('unit_id')->references('id')->on('units');
-            $table->string('minimum');
-            $table->string('type');
+            $table->string('description')->nullable();         
             $table->string('image_url');
             $table->timestamps();
         });

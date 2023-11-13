@@ -37,7 +37,7 @@ class SeasonSeeder extends Seeder
                 ),
                 5 => array(
                     'id' => 6,
-                    'name' => 'DIA AMISTAD',
+                    'name' => 'DIA DEL NIÑO',
                 ),
                 6 => array(
                     'id' => 7,

@@ -28,10 +28,7 @@ class ProductResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                // Forms\Components\Select::make('user_id')
-                //     ->relationship('user', 'name')
-                //     ->required(),
+            ->schema([                
                 Forms\Components\Select::make('category_id')
                     ->label('Categoria')
                     ->relationship('category', 'name')
@@ -46,35 +43,14 @@ class ProductResource extends Resource
                         ->pluck('name','id'))
                     ->searchable()
                     ->live()
-                    ->required(),
-                Forms\Components\Select::make('unit_id')
-                    ->label('Medida')
-                    ->relationship('unit', 'name')
-                    ->required(),
+                    ->required(),                
                 Forms\Components\TextInput::make('name')
                     ->label('Nombre')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('description')
                     ->label('Descripcion')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('code')
-                    ->label('Codigo')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('brand')
-                    ->label('Marca')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('minimum')
-                    ->label('Minimo')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('type')
-                    ->label('Tipo')
-                    ->required()
-                    ->maxLength(255),
+                    ->maxLength(255),                
                 Forms\Components\FileUpload::make('image_url')
                     ->label('Imagen')
                     ->image()
@@ -101,24 +77,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('subcategory.name')
                     ->label('Subcategoria')
                     ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('unit.name')
-                    ->label('Unidad')
-                    ->sortable(),               
-                Tables\Columns\TextColumn::make('code')
-                    ->label('Codigo')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('brand')
-                    ->label('Marca')
-                    ->searchable(),
-                // Tables\Columns\TextColumn::make('purchase.pieces')
-                //     ->label('Piezas')
-                //     ->sum('purchases', 'pieces')
-                //     ->searchable(),
-                
-                // Tables\Columns\TextColumn::make('type')
-                //     ->label('Tipo')
-                //     ->searchable(),
+                    ->sortable(),                
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Registrado por')
                     ->numeric()
