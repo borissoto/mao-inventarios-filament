@@ -27,12 +27,6 @@ class IncomeResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('warehouse_id')
-                    ->relationship('warehouse','name')
-                    ->required(),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user','name')
-                    ->required(),
                 Forms\Components\Select::make('type')
                     ->label('Tipo')
                     ->options([
@@ -46,6 +40,15 @@ class IncomeResource extends Resource
                     ->label('Nro')
                     ->required()
                     ->numeric(),
+                Forms\Components\Select::make('warehouse_id')
+                    ->relationship('warehouse','name')
+                    ->required(),
+                
+                Forms\Components\Select::make('season_id')
+                    ->relationship(name: 'season', titleAttribute:'name', modifyQueryUsing: fn (Builder $query) => $query->orderBy('id'),
+                    )
+                    ->required(),
+                
                 Forms\Components\DatePicker::make('date')
                     ->required(),
                 Forms\Components\Select::make('country')

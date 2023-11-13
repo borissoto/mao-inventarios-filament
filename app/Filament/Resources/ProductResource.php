@@ -29,16 +29,18 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
+                // Forms\Components\Select::make('user_id')
+                //     ->relationship('user', 'name')
+                //     ->required(),
                 Forms\Components\Select::make('category_id')
+                    ->label('Categoria')
                     ->relationship('category', 'name')
                     ->preload()
                     ->live()
                     ->afterStateUpdated(fn (Set $set) => $set('subcategory_id', null))
                     ->required(),
                 Forms\Components\Select::make('subcategory_id')
+                    ->label('Subcategoria')
                     ->options(fn (Get $get): Collection => Subcategory::query()
                         ->where('category_id', $get('category_id'))
                         ->pluck('name','id'))
@@ -46,27 +48,35 @@ class ProductResource extends Resource
                     ->live()
                     ->required(),
                 Forms\Components\Select::make('unit_id')
+                    ->label('Medida')
                     ->relationship('unit', 'name')
                     ->required(),
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('description')
+                    ->label('Descripcion')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('code')
+                    ->label('Codigo')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('brand')
+                    ->label('Marca')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('minimum')
+                    ->label('Minimo')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('type')
+                    ->label('Tipo')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image_url')
+                    ->label('Imagen')
                     ->image()
                     ->required(),
             ]);
@@ -76,30 +86,43 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\ImageColumn::make('image_url')
+                    ->label('Imagen'),                
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->label('Descripcion')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('category.name')
+                    ->label('Categoria')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('subcategory.name')
+                    ->label('Subcategoria')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('unit.name')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->searchable(),
+                    ->label('Unidad')
+                    ->sortable(),               
                 Tables\Columns\TextColumn::make('code')
+                    ->label('Codigo')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('brand')
+                    ->label('Marca')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('minimum')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('type')
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('image_url'),
+                // Tables\Columns\TextColumn::make('purchase.pieces')
+                //     ->label('Piezas')
+                //     ->sum('purchases', 'pieces')
+                //     ->searchable(),
+                
+                // Tables\Columns\TextColumn::make('type')
+                //     ->label('Tipo')
+                //     ->searchable(),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Registrado por')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -118,6 +141,10 @@ class ProductResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('GenerarpdfF')
+                        ->action(function (Collection $products){
+                            dump($products);
+                        }),               
                 ]),
             ]);
     }

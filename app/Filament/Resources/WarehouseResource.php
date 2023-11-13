@@ -23,14 +23,18 @@ class WarehouseResource extends Resource
 
     protected static ?string $navigationGroup = 'Configuracion Almacen';
 
+    protected static ?int $navigationSort = 3;
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('location')
+                    ->label('Ubicacion')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -41,8 +45,10 @@ class WarehouseResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('location')
+                    ->label('Ubicacion')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

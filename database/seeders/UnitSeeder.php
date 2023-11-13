@@ -15,17 +15,18 @@ class UnitSeeder extends Seeder
     public function run(): void
     {
         //
-        DB::table('units')->insert(
-            [
-            'id' => 1,
-            'name' => 'CAJA',
-            'abbreviation' => 'CJ',
-            ],
-            [
-                'id' => 2,
-                'name' => 'BOLSA',
-                'abbreviation' => 'BLS',
-            ],
+        DB::table('units')->insert(array(
+                0 => array(
+                    'id' => 1,
+                    'name' => 'CAJA',
+                    'abbreviation' => 'CJ',
+                ),
+                1 => array(
+                    'id' => 2,
+                    'name' => 'BOLSA',
+                    'abbreviation' => 'BLS',
+                )
+            )
         );
     }
 }

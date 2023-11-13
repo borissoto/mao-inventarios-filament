@@ -134,6 +134,10 @@ class PurchaseResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->groups([
+                //
+                'product.name'
+            ])
             ->filters([
                 //
             ])

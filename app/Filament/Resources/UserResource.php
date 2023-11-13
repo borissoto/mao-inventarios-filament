@@ -33,9 +33,9 @@ class UserResource extends Resource
                 TextInput::make('forename')
                 ->label('Nombres'),
                 TextInput::make('p_surname')
-                ->label('Ap Paterno'),
+                ->label('Apellido Paterno'),
                 TextInput::make('m_surname')
-                ->label('Ap Materno'),
+                ->label('Apellido Materno'),
                 TextInput::make('id_number')
                 ->label('CI')
                 ->numeric(),

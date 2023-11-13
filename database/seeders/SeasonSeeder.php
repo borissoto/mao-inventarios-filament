@@ -14,48 +14,49 @@ class SeasonSeeder extends Seeder
     public function run(): void
     {
         //
-        DB::table('seasons')->insert(
-            [
-                'id' => 1,
-                'name' => 'CARNAVALES',
-            ],
-            [
-                'id' => 2,
-                'name' => 'DIA PADRE',
-            ],
-            [
-                'id' => 3,
-                'name' => 'DIA MADRE',
-            ],
-            [
-                'id' => 4,
-                'name' => 'DIA MAESTRO',
-            ],
-            [
-                'id' => 5,
-                'name' => 'DIA NIÑO',
-            ],
-            [
-                'id' => 6,
-                'name' => 'DIA AMISTAD',
-            ],
-            [
-                'id' => 7,
-                'name' => '21 SEPT',
-            ],
-            [
-                'id' => 8,
-                'name' => 'HALLOWEEN',
-            ],
-            [
-                'id' => 9,
-                'name' => 'NAVIDAD',
-            ],
-            [
-                'id' => 10,
-                'name' => 'AÑO NUEVO',
-            ],
-            
+        DB::table('seasons')->insert(array(
+                0 => array(
+                    'id' => 1,
+                    'name' => 'CARNAVALES',
+                ),
+                1 => array(
+                    'id' => 2,
+                    'name' => 'DIA DEL PADRE',
+                ),
+                2 => array(
+                    'id' => 3,
+                    'name' => 'DIA DE LA MADRE',
+                ),
+                3 => array(
+                    'id' => 4,
+                    'name' => 'DIA DEL MAESTRO',
+                ),
+                4 => array(
+                    'id' => 5,
+                    'name' => 'DIA AMISTAD',
+                ),
+                5 => array(
+                    'id' => 6,
+                    'name' => 'DIA AMISTAD',
+                ),
+                6 => array(
+                    'id' => 7,
+                    'name' => '21 SEPT',
+                ),
+                7 => array(
+                    'id' => 8,
+                    'name' => 'HALLOWEEN',
+                ),
+                8 => array(
+                    'id' => 9,
+                    'name' => 'NAVIDAD',
+                ),
+                9 => array(
+                    'id' => 10,
+                    'name' => 'AÑO NUEVO',
+                ),
+
+            )
         );
     }
 }
