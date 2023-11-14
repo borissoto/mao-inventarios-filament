@@ -57,15 +57,12 @@ class ProductResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('sell_price')
                     ->label('Precio unitario')
-                    ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('box_price')
                     ->label('Precio docena')
-                    ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('wholesale_price')
                     ->label('Precio x mayor')
-                    ->required()
                     ->numeric(),
             ]);
     }
