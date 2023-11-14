@@ -17,7 +17,10 @@ class Product extends Model
         'subcategory_id',
         'name',
         'description',
-        'image_url'
+        'sell_price',
+        'box_price',
+        'wholesale_price',
+        'image_url',
     ];
     
     protected $guarded = [];

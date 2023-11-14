@@ -25,12 +25,12 @@ return new class extends Migration
             $table->string('dimensions');
             $table->string('item_no');
             $table->string('type');
-            $table->timestamp('expiration_date');
-            $table->decimal('total_cost');
-            $table->decimal('unit_price');
-            $table->decimal('sell_price');
-            $table->decimal('box_price');
-            $table->decimal('wholesale_price');
+            $table->timestamp('expiration_date')->nullable();
+            $table->decimal('total_cost')->nullable();
+            $table->decimal('unit_price')->nullable();
+            $table->decimal('sell_price')->nullable();
+            $table->decimal('box_price')->nullable();
+            $table->decimal('wholesale_price')->nullable();
             $table->timestamps();
         });
     }

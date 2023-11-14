@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources\IncomeResource\RelationManagers;
 
+use App\Models\Product;
+use App\Models\Purchase;
+use Filament\Actions\CreateAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -9,11 +12,13 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\DB;
 
 class PurchasesRelationManager extends RelationManager
 {
     protected static string $relationship = 'purchases';
 
+    
     public function form(Form $form): Form
     {
         return $form
@@ -113,7 +118,7 @@ class PurchasesRelationManager extends RelationManager
                     ->searchable(),
                 Tables\Columns\TextColumn::make('expiration_date')
                     ->label('Expira')
-                    ->dateTime()
+                    ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_cost')
                     ->label('Costo Total')
@@ -140,8 +145,21 @@ class PurchasesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
-            ])
+                Tables\Actions\CreateAction::make()
+                    ->mutateFormDataUsing(function (array $data): array {
+                        // This is the test.
+                        $pcs = $data['pieces'];
+                        $product_id = $data['product_id'];
+
+                        $sumpcs = Purchase::where('product_id','=',$product_id)->sum('pieces');
+                        $total = $pcs+$sumpcs;
+                        // dump($pcs, $product_id, $total);
+                        // Product::updateOrCreate( ['id' => $product_id], ['stock_in' => $total]);
+                        DB::table('products')->updateOrInsert(['id' => $product_id], ['stock_in'=>$total]);
+                       
+                        return $data;
+                    }),
+            ])            
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

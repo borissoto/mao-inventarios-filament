@@ -5,6 +5,7 @@ namespace App\Filament\Resources\IncomeResource\Pages;
 use App\Filament\Resources\IncomeResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Database\Eloquent\Model;
 
 class CreateIncome extends CreateRecord
 {
@@ -16,4 +17,11 @@ class CreateIncome extends CreateRecord
     
         return $data;
     }
+
+    // protected function handleRecordCreation(array $data): Model
+    // {
+    //     dump($data);
+    //     return static::getModel()::create($data);
+    // }
+
 }

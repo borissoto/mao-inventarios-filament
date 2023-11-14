@@ -55,6 +55,18 @@ class ProductResource extends Resource
                     ->label('Imagen')
                     ->image()
                     ->required(),
+                Forms\Components\TextInput::make('sell_price')
+                    ->label('Precio unitario')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('box_price')
+                    ->label('Precio docena')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('wholesale_price')
+                    ->label('Precio x mayor')
+                    ->required()
+                    ->numeric(),
             ]);
     }
 
@@ -70,12 +82,28 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                     ->label('Descripcion')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('stock_in')
+                    ->label('En Almacenes')
+                    ->numeric()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Categoria')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('subcategory.name')
                     ->label('Subcategoria')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('sell_price')
+                    ->label('Precio unitario')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('box_price')
+                    ->label('Precio docena')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('wholesale_price')
+                    ->label('Precio x mayor')
                     ->numeric()
                     ->sortable(),                
                 Tables\Columns\TextColumn::make('user.name')
@@ -96,15 +124,17 @@ class ProductResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('download')
+                ->label('PDF')
+                ->url(
+                    fn (Product $record): string => route('download.product', ['record' => $record]),
+                    shouldOpenInNewTab: true
+                )
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\BulkAction::make('GenerarpdfF')
-                        ->action(function (Collection $products){
-                            dump($products);
-                        }),               
-                ]),
+                    Tables\Actions\DeleteBulkAction::make(),                                 
+                ]),                
             ]);
     }
 

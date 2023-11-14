@@ -21,7 +21,13 @@ return new class extends Migration
             $table->foreign('subcategory_id')->references('id')->on('subcategories');
             $table->string('name');
             $table->string('description')->nullable();         
-            $table->string('image_url');
+            $table->decimal('stock_in')->nullable();         
+            $table->decimal('stock_out')->nullable();
+            $table->decimal('stock')->nullable();
+            $table->decimal('sell_price')->nullable();
+            $table->decimal('box_price')->nullable();
+            $table->decimal('wholesale_price')->nullable();
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }

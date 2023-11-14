@@ -66,6 +66,9 @@ class IncomeResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->label('Id Comprobante')
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('warehouse_id')
                     ->label('Deposito')
                     ->numeric(),

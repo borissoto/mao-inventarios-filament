@@ -6,10 +6,12 @@ use App\Filament\Resources\PurchaseResource\Pages;
 use App\Filament\Resources\PurchaseResource\RelationManagers;
 use App\Models\Purchase;
 use Filament\Forms;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\Summarizers\Sum;
+use Filament\Tables\Grouping\Group as GroupingGroup;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -93,6 +95,9 @@ class PurchaseResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            // ->modifyQueryUsing(function (Builder $query) {
+            //     $query->where('product_id', 2);
+            // })
             ->columns([
                 Tables\Columns\TextColumn::make('income_id')
                     ->label('Id Comprobante')
@@ -169,13 +174,14 @@ class PurchaseResource extends Resource
             ])
             ->groups([
                 //
-                'product.name'
+                GroupingGroup::make('product.name')
+                ->label('Producto'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
