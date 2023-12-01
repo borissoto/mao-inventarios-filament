@@ -7,6 +7,8 @@ use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Filament\Forms;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
@@ -24,6 +26,11 @@ class ProductResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-s-gift';
 
     protected static ?string $navigationLabel = 'Productos';
+
+    public $sell_price;
+    public $sell_box;
+    public $sell_wholesome;
+
 
     public static function form(Form $form): Form
     {
@@ -72,7 +79,9 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('image_url')
-                    ->label('Imagen'),                
+                    ->label('Imagen')
+                    ->square()
+                    ->size(80),                
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nombre')
                     ->searchable(),
@@ -123,10 +132,38 @@ class ProductResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('download')
                 ->label('PDF')
-                ->url(
-                    fn (Product $record): string => route('download.product', ['record' => $record]),
-                    shouldOpenInNewTab: true
-                )
+                ->form([
+                    Checkbox::make('is_unit')
+                        ->label('Mostrar Precio Unitario')
+                        ->live(),
+                    Checkbox::make('is_box')
+                        ->label('Mostrar Precio por Docena')
+                        ->live(),
+                    Checkbox::make('is_wholesome')
+                        ->label('Mostrar Precio por Mayor')
+                        ->live()
+                    // ->dehydrated()
+                    // ->afterStateUpdated(fn(Livewire $livewire) => dd($livewire))
+                ])
+                // ->requiresConfirmation()
+                ->action( function (Product $record, array $data): void {
+                    $unit  = $data['is_unit'];
+                    $box  = $data['is_box'];
+                    $wholesome  = $data['is_wholesome'];
+                    // $price2 = $data[1];
+                    // dd($data['is_unit'], $data['is_box'], $data['is_wholesome']);
+                    redirect()->route('download.product', ['id' => $record, 'unit' => $unit, 'box' => $box, 'wholesome' => $wholesome]);
+                })
+                // ->url(fn (Get $get): bool => $get('is_unit'))
+                // ->url(function(Product $record, Get $get): string { 
+                //     // $unit = $get('is_unit');
+                //     dd($get('is_unit'));
+                //     return route('download.product', ['id' => $record, 'unit' => '0']);
+                //     })
+                // ->url(
+                //     fn (Product $record): string => route('download.product', ['record' => $record]),
+                //     shouldOpenInNewTab: true
+                // )
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

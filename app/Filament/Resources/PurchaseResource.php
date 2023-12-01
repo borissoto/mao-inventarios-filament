@@ -108,20 +108,20 @@ class PurchaseResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('product.image_url')
-                    ->label('Imagen')
+                    ->size(80)
                     ->label('Imagen'),
                 Tables\Columns\TextColumn::make('unit.name')
                     ->label('Unidad')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quantity')
-                    ->label('Cantidad')
-                    ->summarize(Sum::make()->label('Total'))
+                    ->label('Cajas')
+                    ->summarize(Sum::make()->label('Total Cajas'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('pieces')
                     ->label('Piezas')
-                    ->summarize(Sum::make()->label('Total Piezas'))
+                    // ->summarize(Sum::make()->label('Total Piezas'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('weight')
@@ -141,14 +141,14 @@ class PurchaseResource extends Resource
                     ->label('Expira')
                     ->dateTime()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('total_cost')
-                    ->label('Costo total')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('unit_price')
-                    ->label('Costo unitario')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('total_cost')
+                //     ->label('Costo total')
+                //     ->numeric()
+                //     ->sortable(),
+                // Tables\Columns\TextColumn::make('unit_price')
+                //     ->label('Costo unitario')
+                //     ->numeric()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('sell_price')
                     ->label('Precio unitario')
                     ->numeric()

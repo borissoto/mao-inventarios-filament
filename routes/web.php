@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('download/{record}', [PdfController::class, 'productPdf'])->name('download.product');
+Route::get('download/{id}', [PdfController::class, 'productPdf'])->name('download.product');

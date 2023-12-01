@@ -28,4 +28,8 @@ class Income extends Model
     public function season(): BelongsTo{
         return $this->belongsTo(Season::class);
     }
+
+    public function supplier(): BelongsTo{
+        return $this->belongsTo(Supplier::class);
+    }
 }

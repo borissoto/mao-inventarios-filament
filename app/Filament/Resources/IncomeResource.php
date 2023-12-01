@@ -30,6 +30,7 @@ class IncomeResource extends Resource
                 Forms\Components\Select::make('type')
                     ->label('Tipo Comp')
                     ->options([
+                        'Invoice' => 'Invoice',
                         'Factura' => 'Factura',
                         'Recibo' => 'Recibo',
                         'Nota de Venta' => 'Nota de Venta',
@@ -51,6 +52,10 @@ class IncomeResource extends Resource
                 
                 Forms\Components\DatePicker::make('date')
                     ->required(),
+                Forms\Components\Select::make('supplier_id')
+                            ->label('Proveedor')
+                            ->relationship('supplier', 'name')
+                            ->required(),
                 Forms\Components\Select::make('country')
                     ->label('Pais')
                     ->options([
