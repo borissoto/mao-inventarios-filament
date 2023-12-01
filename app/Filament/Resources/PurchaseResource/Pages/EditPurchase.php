@@ -11,10 +11,12 @@ class EditPurchase extends EditRecord
 {
     protected static string $resource = PurchaseResource::class;
 
+    protected static ?string $title = 'Editar Compra';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()->label('Eliminar'),
         ];
     }
 

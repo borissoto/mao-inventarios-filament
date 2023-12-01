@@ -9,4 +9,6 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateWarehouse extends CreateRecord
 {
     protected static string $resource = WarehouseResource::class;
+
+    protected static ?string $title = 'Crear Deposito';
 }

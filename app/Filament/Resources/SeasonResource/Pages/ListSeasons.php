@@ -10,6 +10,8 @@ class ListSeasons extends ListRecords
 {
     protected static string $resource = SeasonResource::class;
 
+    protected static ?string $title = 'Temporadas';
+
     protected function getHeaderActions(): array
     {
         return [

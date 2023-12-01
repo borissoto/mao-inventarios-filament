@@ -10,10 +10,12 @@ class EditUnit extends EditRecord
 {
     protected static string $resource = UnitResource::class;
 
+    protected static ?string $title = 'Editar Unidad de Medida';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()->label('Eliminar'),
         ];
     }
 }

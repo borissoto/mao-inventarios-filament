@@ -10,10 +10,12 @@ class EditIncome extends EditRecord
 {
     protected static string $resource = IncomeResource::class;
 
+    protected static ?string $title = 'Editar Comprobante';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()->label('Eliminar'),
         ];
     }
 }

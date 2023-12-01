@@ -10,10 +10,12 @@ class EditSubcategory extends EditRecord
 {
     protected static string $resource = SubcategoryResource::class;
 
+    protected static ?string $title = 'Editar Subcategoria';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()->label('Eliminar'),
         ];
     }
 }

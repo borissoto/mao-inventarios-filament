@@ -10,10 +10,12 @@ class EditWarehouse extends EditRecord
 {
     protected static string $resource = WarehouseResource::class;
 
+    protected static ?string $title = 'Editar Deposito';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()->label('Eliminar'),
         ];
     }
 }

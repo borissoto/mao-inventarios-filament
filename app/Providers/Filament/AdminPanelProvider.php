@@ -27,6 +27,10 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            // ->brandName('MÃO Importaciones')
+            // ->brandLogo(asset('img/logo_patita.png'))
+            ->brandLogo(fn()=> view('filament.components.logo'))
+            ->darkModeBrandLogo(fn()=> view('filament.components.logo-dark'))
             ->colors([
                 'primary' => Color::Amber,
             ])

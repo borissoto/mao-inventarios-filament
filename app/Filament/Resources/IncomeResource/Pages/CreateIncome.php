@@ -11,6 +11,8 @@ class CreateIncome extends CreateRecord
 {
     protected static string $resource = IncomeResource::class;
 
+    protected static ?string $title = 'Crear Comprobante';
+
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['user_id'] = auth()->id();

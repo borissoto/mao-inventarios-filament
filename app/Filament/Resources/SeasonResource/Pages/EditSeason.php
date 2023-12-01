@@ -10,10 +10,12 @@ class EditSeason extends EditRecord
 {
     protected static string $resource = SeasonResource::class;
 
+    protected static ?string $title = 'Editar Temporada';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()->label('Eliminar'),
         ];
     }
 }

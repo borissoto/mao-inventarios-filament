@@ -9,4 +9,6 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateSeason extends CreateRecord
 {
     protected static string $resource = SeasonResource::class;
+
+    protected static ?string $title = 'Crear Temporada';
 }

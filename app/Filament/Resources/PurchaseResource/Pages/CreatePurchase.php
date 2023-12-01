@@ -12,6 +12,8 @@ class CreatePurchase extends CreateRecord
 {
     protected static string $resource = PurchaseResource::class;
 
+    protected static ?string $title = 'Crear Compra';
+
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         // $pcs = $data['pieces'];

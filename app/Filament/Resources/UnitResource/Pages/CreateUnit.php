@@ -9,4 +9,6 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateUnit extends CreateRecord
 {
     protected static string $resource = UnitResource::class;
+
+    protected static ?string $title = 'Crear Unidad de Medida';
 }

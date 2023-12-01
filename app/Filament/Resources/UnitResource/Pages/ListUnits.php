@@ -10,7 +10,7 @@ class ListUnits extends ListRecords
 {
     protected static string $resource = UnitResource::class;
 
-    protected static ?string $title = 'Unidad de Medida';
+    protected static ?string $title = 'Unidades de Medida';
 
     protected function getHeaderActions(): array
     {

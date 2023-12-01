@@ -129,7 +129,7 @@ class ProductResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Editar'),
                 Tables\Actions\Action::make('download')
                 ->label('PDF')
                 ->form([

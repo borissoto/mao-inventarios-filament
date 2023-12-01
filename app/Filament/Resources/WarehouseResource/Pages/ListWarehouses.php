@@ -10,7 +10,7 @@ class ListWarehouses extends ListRecords
 {
     protected static string $resource = WarehouseResource::class;
 
-    protected static ?string $title = 'Deposito';
+    protected static ?string $title = 'Depositos';
 
     protected function getHeaderActions(): array
     {
