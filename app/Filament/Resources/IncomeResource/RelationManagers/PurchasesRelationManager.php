@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
+use Filament\Forms\Components\Section;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -20,6 +21,7 @@ class PurchasesRelationManager extends RelationManager
 {
     protected static string $relationship = 'purchases';
 
+    protected static ?string $title = 'Compra de productos';
     
     public function form(Form $form): Form
     {
@@ -120,80 +122,88 @@ class PurchasesRelationManager extends RelationManager
                     Tabs\Tab::make('Precios')
                         ->icon('heroicon-o-currency-dollar')
                         ->schema([
-                            Forms\Components\TextInput::make('total_cost')
-                                ->label('Costo x Caja')    
-                                ->required()
-                                ->live()
-                                ->numeric(),
-                            Forms\Components\TextInput::make('pieces')
-                                ->label('Piezas x Caja')
-                                ->required()
-                                ->live()
-                                ->numeric(),
-                            Forms\Components\Placeholder::make('costo_unitario')
-                                ->label('Costo x Pieza')   
-                                ->live() 
-                                ->reactive()
-                                ->content(function($get){
-                                    if($get('total_cost') == 0 || $get('pieces') == 0){
-                                       return 0;
-                                    }else{
-                                        return $get('total_cost') / $get('pieces');
-                                    }
-                                }),
-                            Forms\Components\TextInput::make('unit_cost')
-                                ->label('Costo x Pieza')
-                                ->required()
-                                ->live()
-                                ->numeric(),
-                            // Forms\Components\Placeholder::make('costo_origen')
-                            //     ->label('Costo Origen'), 
-                                // ->content(function($get){
-                                //     return $get('source_cost') + $get('unit_cost');
-                                //  }),
-                            Forms\Components\Placeholder::make('costo_minimo')
-                                ->label('Costo Minimo x Pieza')  
-                                ->live()  
-                                ->content(function($get){
-                                    if($get('pieces')==0 || $get('source_cost')==0){
-                                        return 'Inserte cantidad de cajas';
-                                    }else{
-                                        return ($get('source_cost') / $get('pieces')) + $get('unit_cost');
-                                    }
-                                }),
-                            Forms\Components\TextInput::make('minimum_cost')
-                                ->label('Costo Minimo x Pieza')
-                                ->required()
-                                ->live()
-                                ->numeric(),
+                            Section::make('Costos')
+                                ->description('Son los costos que se suman para sacar los precios a la venta')
+                                ->schema([
+                                    Forms\Components\TextInput::make('total_cost')
+                                        ->label('Costo x Caja')    
+                                        ->required()
+                                        ->live()
+                                        ->numeric(),
+                                    Forms\Components\TextInput::make('pieces')
+                                        ->label('Piezas x Caja')
+                                        ->required()
+                                        ->live()
+                                        ->numeric(),
+                                    Forms\Components\Placeholder::make('costo_unitario')
+                                        ->label('Costo x Pieza (Costo x Caja / Piezas x Caja)')   
+                                        ->live() 
+                                        ->reactive()
+                                        ->content(function($get){
+                                            if($get('total_cost') == 0 || $get('pieces') == 0){
+                                            return 0;
+                                            }else{
+                                                return $get('total_cost') / $get('pieces');
+                                            }
+                                        }),
+                                    Forms\Components\TextInput::make('unit_cost')
+                                        ->label('Costo x Pieza')
+                                        ->required()
+                                        ->live()
+                                        ->numeric(),
+                                    // Forms\Components\Placeholder::make('costo_origen')
+                                    //     ->label('Costo Origen'), 
+                                        // ->content(function($get){
+                                        //     return $get('source_cost') + $get('unit_cost');
+                                        //  }),
+                                    Forms\Components\Placeholder::make('costo_minimo')
+                                        ->label('Costo Min x Pza (Costo x Pza + Costo Origen Pza)')  
+                                        ->live()  
+                                        ->content(function($get){
+                                            if($get('pieces')==0 || $get('source_cost')==0){
+                                                return 'Inserte cantidad de cajas';
+                                            }else{
+                                                return ($get('source_cost') / $get('pieces')) + $get('unit_cost');
+                                            }
+                                        }),
+                                    Forms\Components\TextInput::make('minimum_cost')
+                                        ->label('Costo Minimo x Pieza')
+                                        ->required()
+                                        ->live()
+                                        ->numeric(),
+                                ])->columns(2),                           
                             Forms\Components\TextInput::make('profit_percentage')
-                                ->label('Ganancia x Caja (Porcentaje)')
+                                ->label('Ganancia x Caja (Colocar Porcentaje)')
                                 ->required()
                                 ->live()
                                 ->numeric(),
-                            Forms\Components\Placeholder::make('costo_minimo')
-                                ->label('Precio a la Venta')  
-                                ->live()  
-                                ->content(function($get){
-                                    if($get('total_cost')==0 || $get('pieces')==0 || $get('profit_percentage')==0){
-                                        return 'Inserte Costo por Caja';
-                                    }else{
-                                        return (($get('total_cost') / $get('pieces')) * $get('profit_percentage') / 100)+$get('minimum_cost').'Bs.';
-                                    }
-                                }),
+                            Section::make('Precios Venta')
+                                ->description('Son los precios que podran ser vistos por los clientes')
+                                ->schema([
+                                    Forms\Components\Placeholder::make('costo_minimo')
+                                    ->label('Precio x Pieza a la Venta')  
+                                    ->live()  
+                                    ->content(function($get){
+                                        if($get('total_cost')==0 || $get('pieces')==0 || $get('profit_percentage')==0){
+                                            return 'Inserte Costo por Caja';
+                                        }else{
+                                            return (($get('total_cost') / $get('pieces')) * $get('profit_percentage') / 100)+$get('minimum_cost').'Bs.';
+                                        }
+                                    }),                                    
+                                    Forms\Components\TextInput::make('sell_price')
+                                        ->label('Precio Pieza')    
+                                        ->required()
+                                        ->numeric(),
+                                    Forms\Components\TextInput::make('box_price')
+                                        ->label('Precio Pieza Docena')    
+                                        ->required()
+                                        ->numeric(),
+                                    Forms\Components\TextInput::make('wholesale_price')
+                                        ->label('Precio Pieza x Mayor')    
+                                        ->required()
+                                        ->numeric(),
+                                ])->columns(2)
                             
-                            Forms\Components\TextInput::make('sell_price')
-                                ->label('Precio Pieza')    
-                                ->required()
-                                ->numeric(),
-                            Forms\Components\TextInput::make('box_price')
-                                ->label('Precio Pieza Docena')    
-                                ->required()
-                                ->numeric(),
-                            Forms\Components\TextInput::make('wholesale_price')
-                                ->label('Precio Pieza x Mayor')    
-                                ->required()
-                                ->numeric(),
                         ]),
                         
                   
@@ -279,6 +289,7 @@ class PurchasesRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
+                    ->label('Crear Item')
                     ->mutateFormDataUsing(function (array $data): array {
                         // This is the test.
                         $pcs = $data['pieces'];

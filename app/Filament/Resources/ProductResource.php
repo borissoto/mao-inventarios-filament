@@ -127,8 +127,8 @@ class ProductResource extends Resource
             ])
             ->filters([
                 //
-            ])
-            ->actions([
+            ])            
+            ->actions([                
                 Tables\Actions\EditAction::make()->label('Editar'),
                 Tables\Actions\Action::make('download')
                 ->label('PDF')

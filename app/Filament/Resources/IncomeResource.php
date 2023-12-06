@@ -28,7 +28,7 @@ class IncomeResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('type')
-                    ->label('Tipo Comp')
+                    ->label('Tipo Comprobante')
                     ->options([
                         'Invoice' => 'Invoice',
                         'Factura' => 'Factura',
@@ -42,10 +42,12 @@ class IncomeResource extends Resource
                     ->required()
                     ->numeric(),
                 Forms\Components\Select::make('warehouse_id')
+                    ->label('Deposito')
                     ->relationship('warehouse','name')
                     ->required(),
                 
                 Forms\Components\Select::make('season_id')
+                    ->label('Temporada')
                     ->relationship(name: 'season', titleAttribute:'name', modifyQueryUsing: fn (Builder $query) => $query->orderBy('id'),
                     )
                     ->required(),
