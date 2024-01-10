@@ -102,17 +102,17 @@ footer { position: fixed; bottom: 40px; left: 0px; right: 0px; background-color:
                 @endif
             </tr>
             <tr>                
-                <td>Precio x Docena</td>
-                @if ($box_price == 1)
-                <td>{{$record->box_price}}</td>
+                <td>Precio x Mayor</td>
+                @if ($wholesome_price == 1)
+                <td>{{$record->wholesale_price}}</td>                    
                 @else
                 <td> - </td>
                 @endif
             </tr>
             <tr>                
-                <td>Precio x Mayor</td>
-                @if ($wholesome_price == 1)
-                <td>{{$record->wholesale_price}}</td>                    
+                <td>Precio x Caja</td>
+                @if ($box_price == 1)
+                <td>{{$record->box_price}}</td>
                 @else
                 <td> - </td>
                 @endif

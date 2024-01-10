@@ -61,15 +61,20 @@ class ProductResource extends Resource
                 Forms\Components\FileUpload::make('image_url')
                     ->label('Imagen')
                     ->image()
+                    ->maxSize(512)
+                    ->imageResizeMode('cover')
+                    ->imageCropAspectRatio('16:9')
+                    ->imageResizeTargetWidth('1280')
+                    ->imageResizeTargetHeight('720')
                     ->required(),
                 Forms\Components\TextInput::make('sell_price')
-                    ->label('Precio unitario')
-                    ->numeric(),
-                Forms\Components\TextInput::make('box_price')
-                    ->label('Precio docena')
+                    ->label('Precio Unitario')
                     ->numeric(),
                 Forms\Components\TextInput::make('wholesale_price')
-                    ->label('Precio x mayor')
+                    ->label('Precio x Mayor')
+                    ->numeric(),
+                Forms\Components\TextInput::make('box_price')
+                    ->label('Precio x Caja')
                     ->numeric(),
             ]);
     }
@@ -101,17 +106,17 @@ class ProductResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('sell_price')
-                    ->label('Precio unitario')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('box_price')
-                    ->label('Precio docena')
+                    ->label('Precio Unitario')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('wholesale_price')
-                    ->label('Precio x mayor')
+                    ->label('Precio Mayor')
                     ->numeric()
                     ->sortable(),                
+                Tables\Columns\TextColumn::make('box_price')
+                    ->label('Precio Caja')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Registrado por')
                     ->numeric()
@@ -136,12 +141,12 @@ class ProductResource extends Resource
                     Checkbox::make('is_unit')
                         ->label('Mostrar Precio Unitario')
                         ->live(),
-                    Checkbox::make('is_box')
-                        ->label('Mostrar Precio por Docena')
-                        ->live(),
                     Checkbox::make('is_wholesome')
                         ->label('Mostrar Precio por Mayor')
-                        ->live()
+                        ->live(),
+                    Checkbox::make('is_box')
+                        ->label('Mostrar Precio por Caja')
+                        ->live(),
                     // ->dehydrated()
                     // ->afterStateUpdated(fn(Livewire $livewire) => dd($livewire))
                 ])
