@@ -6,6 +6,7 @@ use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use App\Models\Subcategory;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
@@ -14,10 +15,15 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class ProductResource extends Resource
 {
@@ -26,6 +32,10 @@ class ProductResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-s-gift';
 
     protected static ?string $navigationLabel = 'Productos';
+
+    protected static ?string $navigationGroup = 'Ingresos Almacen';
+
+    protected static ?int $navigationSort = 1;
 
     public $sell_price;
     public $sell_box;
@@ -55,18 +65,18 @@ class ProductResource extends Resource
                     ->label('Nombre')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('item')
+                    ->label('Item Ingreso')
+                    ->maxLength(255),
+                Forms\Components\Select::make('type')
+                            ->label('Tipo de Caja')
+                            ->options([
+                                'Armada' => 'Armada',
+                                'Desarmada' => 'Desarmada'
+                            ]),              
                 Forms\Components\TextInput::make('description')
                     ->label('Descripcion')
                     ->maxLength(255),                
-                Forms\Components\FileUpload::make('image_url')
-                    ->label('Imagen')
-                    ->image()
-                    ->maxSize(512)
-                    ->imageResizeMode('cover')
-                    ->imageCropAspectRatio('16:9')
-                    ->imageResizeTargetWidth('1280')
-                    ->imageResizeTargetHeight('720')
-                    ->required(),
                 Forms\Components\TextInput::make('sell_price')
                     ->label('Precio Unitario')
                     ->numeric(),
@@ -76,6 +86,18 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('box_price')
                     ->label('Precio x Caja')
                     ->numeric(),
+                Forms\Components\TextInput::make('liquidation_price')
+                    ->label('Precio Liquidacion')
+                    ->numeric(),
+                Forms\Components\FileUpload::make('image_url')
+                    ->label('Imagen')
+                    ->image()
+                    ->maxSize(512)
+                    ->imageResizeMode('cover')
+                    ->imageCropAspectRatio('16:9')
+                    ->imageResizeTargetWidth('1280')
+                    ->imageResizeTargetHeight('720')
+                    ->required(),
             ]);
     }
 
@@ -87,11 +109,11 @@ class ProductResource extends Resource
                     ->label('Imagen')
                     ->square()
                     ->size(80),                
+                Tables\Columns\TextColumn::make('item')
+                    ->label('Item Nro')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nombre')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->label('Descripcion')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('stock_in')
                     ->label('En Almacenes')
@@ -105,6 +127,12 @@ class ProductResource extends Resource
                     ->label('Subcategoria')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Tipo')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->label('Descripcion')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('sell_price')
                     ->label('Precio Unitario')
                     ->numeric()
@@ -115,6 +143,10 @@ class ProductResource extends Resource
                     ->sortable(),                
                 Tables\Columns\TextColumn::make('box_price')
                     ->label('Precio Caja')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('liquidation_price')
+                    ->label('Precio Liquidacion')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
@@ -128,7 +160,9 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true),    
+                
+                           
             ])
             ->filters([
                 //
@@ -174,7 +208,13 @@ class ProductResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),                                 
                 ]),                
-            ]);
+            ])
+            ->recordClasses(fn (Product $record) => match ($record->name) {
+                'draft' => 'opacity-30',
+                '11' => 'border-s-2 border-orange-600 dark:border-orange-300',
+                'Juguetes' => 'border-s-2 border-green-600 dark:border-green-300',
+                default => null,
+            });
     }
 
     public static function getRelations(): array
@@ -192,4 +232,15 @@ class ProductResource extends Resource
             'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }
+
+    public static function canViewAny(): bool{
+        $user = auth()->user()->roles->pluck('name')[0];
+        // dd($user);
+        if($user == 'SuperAdmin' || $user == 'Administrador'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

@@ -23,6 +23,8 @@ class IncomeResource extends Resource
 
     protected static ?string $navigationGroup = 'Ingresos Almacen';
 
+    protected static ?int $navigationSort = 2;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -30,6 +32,7 @@ class IncomeResource extends Resource
                 Forms\Components\Select::make('type')
                     ->label('Tipo Comprobante')
                     ->options([
+                        'BL (Bill of lading)' => 'BL (Bill of lading)',
                         'Invoice' => 'Invoice',
                         'Factura' => 'Factura',
                         'Recibo' => 'Recibo',
@@ -39,33 +42,26 @@ class IncomeResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('code')
                     ->label('Nro')
-                    ->required()
-                    ->numeric(),
+                    ->required(),
+                Forms\Components\DatePicker::make('arrival_date')
+                    ->label('Fecha Despacho Origen')
+                    ->required(),
+                Forms\Components\DatePicker::make('shipping_date')
+                    ->label('Fecha Ingreso Almacenes')
+                    ->required(),
                 Forms\Components\Select::make('warehouse_id')
                     ->label('Deposito')
                     ->relationship('warehouse','name')
                     ->required(),
-                
                 Forms\Components\Select::make('season_id')
                     ->label('Temporada')
                     ->relationship(name: 'season', titleAttribute:'name', modifyQueryUsing: fn (Builder $query) => $query->orderBy('id'),
                     )
-                    ->required(),
-                
-                Forms\Components\DatePicker::make('date')
-                    ->required(),
+                    ->required(),                
                 Forms\Components\Select::make('supplier_id')
                             ->label('Proveedor')
                             ->relationship('supplier', 'name')
                             ->required(),
-                Forms\Components\Select::make('country')
-                    ->label('Pais')
-                    ->options([
-                        'CHINA' => 'China',
-                        'PERU' => 'Peru',
-                        'COLOMBIA' => 'Colombia',
-                    ])
-                    ->required(),
             ]);
     }
 
@@ -76,8 +72,8 @@ class IncomeResource extends Resource
                 Tables\Columns\TextColumn::make('id')
                     ->label('Id Comprobante')
                     ->numeric(),
-                Tables\Columns\TextColumn::make('warehouse_id')
-                    ->label('Deposito')
+                Tables\Columns\TextColumn::make('warehouse.name')
+                    ->label('Almacen')
                     ->numeric(),
                 Tables\Columns\TextColumn::make('type')
                     ->label('Tipo Comp')
@@ -86,12 +82,20 @@ class IncomeResource extends Resource
                     ->label('Nro')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('date')
-                    ->label('Fecha ingreso')
+                Tables\Columns\TextColumn::make('shipping_date')
+                    ->label('Fecha Despacho Origen')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('country')
-                    ->label('Pais')
+                Tables\Columns\TextColumn::make('arrival_date')
+                    ->label('Fecha Ingreso Almacen')
+                    ->date()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('supplier.name')
+                    ->label('Proveedor')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('supplier.country.name')
+                    ->label('Proveedor Pais')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')

@@ -17,13 +17,13 @@ class WarehouseSeeder extends Seeder
         DB::table('warehouses')->insert(array(
             0 => array(
                 'id' => 1,
-                'name' => 'ALMACEN 1',
+                'name' => 'BEIJING',
                 'location' => 'GALERIA BEIJING',
             ),
             1 => array(
                 'id' => 2,
-                'name' => 'ALMACEN 2',
-                'location' => 'GALERIA BOMBAI',
+                'name' => 'CANALES',
+                'location' => 'GALERIA CANALES',
             )
         )
         );

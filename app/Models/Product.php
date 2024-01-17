@@ -16,9 +16,12 @@ class Product extends Model
         'category_id',
         'subcategory_id',
         'name',
+        'item',
         'description',
+        'type',
         'sell_price',
         'box_price',
+        'liquidation_price',
         'wholesale_price',
         'image_url',
     ];

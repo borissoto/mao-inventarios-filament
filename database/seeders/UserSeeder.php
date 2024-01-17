@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,9 +16,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         //
-        DB::table('users')->insert([
+        User::create([
             'id' => 1,
-            'name' => 'admin',
+            'name' => 'Mile',
             'email' => 'admin@mao.com',
             'password' => Hash::make('123456'),
             'forename' => 'Mile',
@@ -29,7 +30,7 @@ class UserSeeder extends Seeder
             'mobile' => '77712345',
             'address' => 'Direccion domicilio',
             'start' => '2023-01-01 00:00:00',
-            'state' => 1,
-        ]);
+            'status' => 1,
+        ])->assignRole('SuperAdmin');
     }
 }

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('incomes', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->integer('code');
-            $table->timestamp('date');
-            $table->string('country');
+            $table->string('code');
+            $table->timestamp('shipping_date');
+            $table->timestamp('arrival_date')->nullable();
             $table->unsignedBigInteger('season_id');
             $table->foreign('season_id')->references('id')->on('seasons');
             $table->unsignedBigInteger('warehouse_id');

@@ -16,7 +16,7 @@ class ListSubcategories extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Nueva subcategoria'),
+                ->label('Crear Subcategoria'),
         ];
     }
 }

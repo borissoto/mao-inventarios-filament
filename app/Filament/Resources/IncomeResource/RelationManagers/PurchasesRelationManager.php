@@ -57,28 +57,33 @@ class PurchasesRelationManager extends RelationManager
                                 ->required()
                                 ->live()
                                 ->numeric(),
+                            Forms\Components\TextInput::make('pieces')
+                                ->label('Piezas x Caja')
+                                ->live()
+                                ->required()
+                                ->numeric(),
                             Forms\Components\TextInput::make('weight')
                                 ->label('Peso(Kg)')
                                 ->required()
                                 ->numeric(),
                             Forms\Components\TextInput::make('dimensions')
-                                ->label('Dimensiones (ej: 30x30x30)')
+                                ->label('CBM (m3)')
                                 ->required()
                                 ->maxLength(255),
                             Forms\Components\TextInput::make('item_no')
-                                ->label('Nro Item')
+                                ->label('Nro Item Origen')
                                 ->required()
                                 ->maxLength(255),
-                            Forms\Components\Select::make('type')
-                                ->label('Tipo de Caja')
-                                ->options([
-                                    'Armada' => 'Armada',
-                                    'Desarmada' => 'Desarmada'
-                                ])
-                                ->required(),
-                            Forms\Components\DatePicker::make('expiration_date')
-                                ->label('Expira')    
-                                ->required(),
+                            // Forms\Components\Select::make('type')
+                            //     ->label('Tipo de Caja')
+                            //     ->options([
+                            //         'Armada' => 'Armada',
+                            //         'Desarmada' => 'Desarmada'
+                            //     ])
+                            //     ->required(),
+                            // Forms\Components\DatePicker::make('expiration_date')
+                            //     ->label('Expira')    
+                            //     ->required(),
                         ]),
                     Tabs\Tab::make('Costo Origen')
                         ->icon('heroicon-o-truck')
@@ -127,12 +132,6 @@ class PurchasesRelationManager extends RelationManager
                                 ->schema([
                                     Forms\Components\TextInput::make('total_cost')
                                         ->label('Costo x Caja')    
-                                        ->required()
-                                        ->live()
-                                        ->numeric(),
-                                    Forms\Components\TextInput::make('pieces')
-                                        ->label('Piezas x Caja')
-                                        ->required()
                                         ->live()
                                         ->numeric(),
                                     Forms\Components\Placeholder::make('costo_unitario')
@@ -148,7 +147,6 @@ class PurchasesRelationManager extends RelationManager
                                         }),
                                     Forms\Components\TextInput::make('unit_cost')
                                         ->label('Costo x Pieza')
-                                        ->required()
                                         ->live()
                                         ->numeric(),
                                     // Forms\Components\Placeholder::make('costo_origen')
@@ -168,13 +166,11 @@ class PurchasesRelationManager extends RelationManager
                                         }),
                                     Forms\Components\TextInput::make('minimum_cost')
                                         ->label('Costo Minimo x Pieza')
-                                        ->required()
                                         ->live()
                                         ->numeric(),
                                 ])->columns(2),                           
                             Forms\Components\TextInput::make('profit_percentage')
                                 ->label('Ganancia x Caja (Colocar Porcentaje)')
-                                ->required()
                                 ->live()
                                 ->numeric(),
                             Section::make('Precios Venta')
@@ -190,18 +186,15 @@ class PurchasesRelationManager extends RelationManager
                                             return (($get('total_cost') / $get('pieces')) * $get('profit_percentage') / 100)+$get('minimum_cost').'Bs.';
                                         }
                                     }),                                    
-                                    Forms\Components\TextInput::make('sell_price')
-                                        ->label('Precio Pieza')    
-                                        ->required()
-                                        ->numeric(),
-                                    Forms\Components\TextInput::make('box_price')
-                                        ->label('Precio Pieza Docena')    
-                                        ->required()
-                                        ->numeric(),
-                                    Forms\Components\TextInput::make('wholesale_price')
-                                        ->label('Precio Pieza x Mayor')    
-                                        ->required()
-                                        ->numeric(),
+                                    // Forms\Components\TextInput::make('sell_price')
+                                    //     ->label('Precio Pieza')    
+                                    //     ->numeric(),
+                                    // Forms\Components\TextInput::make('box_price')
+                                    //     ->label('Precio Pieza Docena')    
+                                    //     ->numeric(),
+                                    // Forms\Components\TextInput::make('wholesale_price')
+                                    //     ->label('Precio Pieza x Mayor')    
+                                    //     ->numeric(),
                                 ])->columns(2)
                             
                         ]),
@@ -246,6 +239,10 @@ class PurchasesRelationManager extends RelationManager
                     ->label('Piezas')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('total_pieces')
+                    ->label('Piezas Total')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('weight')
                     ->label('Peso')
                     ->numeric()
@@ -254,35 +251,35 @@ class PurchasesRelationManager extends RelationManager
                     ->label('Dimensiones')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('item_no')
-                    ->label('Nro Item')
+                    ->label('Nro Item Origen')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
                     ->label('Open Box')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('expiration_date')
-                    ->label('Expira')
-                    ->date()
+                // Tables\Columns\TextColumn::make('expiration_date')
+                //     ->label('Expira')
+                //     ->date()
+                //     ->sortable(),
+                Tables\Columns\TextColumn::make('total_cost')
+                    ->label('Costo Total')
+                    ->numeric()
                     ->sortable(),
-                // Tables\Columns\TextColumn::make('total_cost')
-                //     ->label('Costo Total')
+                Tables\Columns\TextColumn::make('unit_price')
+                    ->label('Costo unitario')
+                    ->numeric()
+                    ->sortable(),
+                // Tables\Columns\TextColumn::make('sell_price')
+                //     ->label('Precio unitario')
                 //     ->numeric()
                 //     ->sortable(),
-                // Tables\Columns\TextColumn::make('unit_price')
-                //     ->label('Costo unitario')
+                // Tables\Columns\TextColumn::make('box_price')
+                //     ->label('Precio docena')
                 //     ->numeric()
                 //     ->sortable(),
-                Tables\Columns\TextColumn::make('sell_price')
-                    ->label('Precio unitario')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('box_price')
-                    ->label('Precio docena')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('wholesale_price')
-                    ->label('Precio x mayor')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('wholesale_price')
+                //     ->label('Precio x mayor')
+                //     ->numeric()
+                //     ->sortable(),
             ])
             ->filters([
                 //
@@ -294,30 +291,50 @@ class PurchasesRelationManager extends RelationManager
                         // This is the test.
                         $pcs = $data['pieces'];
                         $boxs = $data['quantity'];
-                        $unit = $data['sell_price'];
-                        $box = $data['box_price'];
-                        $wholesale = $data['wholesale_price'];
+                        // $unit = $data['sell_price'];
+                        // $box = $data['box_price'];
+                        // $wholesale = $data['wholesale_price'];
+
+                        $data['total_pieces'] = $pcs * $boxs;
+
+                        
+                        // cantidad total
+                        
                         $product_id = $data['product_id'];
 
-                        $sumpcs = Purchase::where('product_id','=',$product_id)->sum('pieces');
-                        $sumboxs = Purchase::where('product_id','=',$product_id)->sum('quantity');
+                        $sumtotalpcs = Purchase::where('product_id','=',$product_id)->sum('total_pieces');
+                        // $sumpcs = Purchase::where('product_id','=',$product_id)->sum('pieces');
+                        // $sumboxs = Purchase::where('product_id','=',$product_id)->sum('quantity');
 
-                        $totalpcs = $pcs+$sumpcs;
-                        $totalbox = $boxs+$sumboxs;
-                        $total = $totalpcs * $totalbox;
+                        // $totalpcs = $pcs+$sumpcs;
+                        // $totalbox = $boxs+$sumboxs;
+                        // $total = $totalpcs * $totalbox;
                         // dump($pcs, $product_id, $total);
                         // Product::updateOrCreate( ['id' => $product_id], ['stock_in' => $total]);
-                        DB::table('products')->updateOrInsert(['id' => $product_id], ['stock_in'=>$total]);
-                        DB::table('products')->updateOrInsert(['id' => $product_id], ['sell_price'=>$unit]);
-                        DB::table('products')->updateOrInsert(['id' => $product_id], ['box_price'=>$box]);
-                        DB::table('products')->updateOrInsert(['id' => $product_id], ['wholesale_price'=>$wholesale]);
+                        DB::table('products')->updateOrInsert(['id' => $product_id], ['stock_in'=>$sumtotalpcs]);
+                        // DB::table('products')->updateOrInsert(['id' => $product_id], ['sell_price'=>$unit]);
+                        // DB::table('products')->updateOrInsert(['id' => $product_id], ['box_price'=>$box]);
+                        // DB::table('products')->updateOrInsert(['id' => $product_id], ['wholesale_price'=>$wholesale]);
 
                        
                         return $data;
                     }),
             ])            
             ->actions([
-                Tables\Actions\EditAction::make()->label('Editar'),
+                Tables\Actions\EditAction::make()->label('Editar')
+                    ->mutateFormDataUsing(function (array $data): array {
+                        // This is the test.
+                        $pcs = $data['pieces'];
+                        $boxs = $data['quantity'];
+                        $data['total_pieces'] = $pcs * $boxs;
+                        
+                        // cantidad total
+                        $product_id = $data['product_id'];
+                        $sumtotalpcs = Purchase::where('product_id','=',$product_id)->sum('total_pieces');
+                        DB::table('products')->updateOrInsert(['id' => $product_id], ['stock_in'=>$sumtotalpcs]);
+                        
+                        return $data;
+                    }),
                 Tables\Actions\DeleteAction::make()->label('Eliminar'),
             ])
             ->bulkActions([

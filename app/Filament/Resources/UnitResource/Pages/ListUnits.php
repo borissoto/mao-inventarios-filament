@@ -16,7 +16,7 @@ class ListUnits extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Nueva unidad de medida'),
+                ->label('Crear Unidad de medida'),
         ];
     }
 }

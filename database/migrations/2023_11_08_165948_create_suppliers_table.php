@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('mobile')->nullable();
-            $table->string('address')->nullable();
+            $table->string('mobile');
+            $table->unsignedBigInteger('country_id');
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->string('city')->nullable();
+            $table->string('address');
             $table->timestamps();
         });
     }

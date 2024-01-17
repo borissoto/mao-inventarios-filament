@@ -19,9 +19,13 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-user-group';
+    protected static ?string $navigationIcon = 'heroicon-s-users';
 
     protected static ?string $navigationLabel = 'Usuarios';
+
+    protected static ?string $navigationGroup = 'Configuracion Usuarios';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -29,16 +33,16 @@ class UserResource extends Resource
             ->schema([
                 //
                 TextInput::make('name')
-                ->label('Usuario'),
-                TextInput::make('forename')
-                ->label('Nombres'),
+                    ->label('Nombres'),
+                // TextInput::make('forename')
+                //     ->label('Nombres'),
                 TextInput::make('p_surname')
-                ->label('Apellido Paterno'),
+                    ->label('Apellido Paterno'),
                 TextInput::make('m_surname')
-                ->label('Apellido Materno'),
+                    ->label('Apellido Materno'),
                 TextInput::make('id_number')
-                ->label('CI')
-                ->numeric(),
+                    ->label('CI')
+                    ->numeric(),
                 Select::make('sex')
                     ->label('Genero')
                     ->options([
@@ -46,14 +50,28 @@ class UserResource extends Resource
                         'Femenino' => 'Femenino',
                     ]),
                 TextInput::make('mobile')
-                ->label('Celular')
-                ->numeric(),
+                    ->label('Celular')
+                    ->numeric(),
                 TextInput::make('address')
-                ->label('Domicilio'),
+                    ->label('Domicilio'),
                 DatePicker::make('start')
-                ->label('Ingreso'),
-                TextInput::make('email'),
-                TextInput::make('password'),
+                    ->label('Ingreso'),
+                TextInput::make('email')
+                    ->required(),
+                Select::make('status')
+                    ->label('Estado')
+                    ->options([
+                        1 => 'Activo',
+                        2 => 'Inactivo',
+                    ]),    
+                TextInput::make('password')
+                    ->required()
+                    ->password()
+                    ->hiddenOn('edit'),
+                Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->required()
+                   
             ]);
     }
 
@@ -62,21 +80,62 @@ class UserResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make('forename')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->icon('heroicon-m-envelope')
+                    // ->iconColor('primary')
+                    ->searchable()
+                    ->label('Email'),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->label('Nombres'),
                 Tables\Columns\TextColumn::make('p_surname')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('Ap Paterno'),
                 Tables\Columns\TextColumn::make('m_surname')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('Ap Materno'),
+                Tables\Columns\TextColumn::make('roles.name')
+                    ->searchable()
+                    ->label('Rol')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'SuperAdmin' => 'success',
+                        'Administrador' => 'primary',
+                        'Vendedor' => 'gray',
+                    }),
                 Tables\Columns\TextColumn::make('id_number')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('id_number')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('CI'),
                 Tables\Columns\TextColumn::make('sex')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('Sexo'),
                 Tables\Columns\TextColumn::make('mobile')
-                    ->searchable(),
-
+                    ->searchable()
+                    ->label('Cel'),
+                Tables\Columns\TextColumn::make('address')
+                    ->searchable()
+                    ->label('Domicilio'),
+                Tables\Columns\TextColumn::make('start')
+                    ->searchable()
+                    ->label('Ingreso')
+                    ->date(),   
+                Tables\Columns\TextColumn::make('status')
+                    ->searchable()
+                    ->label('Estado')
+                    ->badge()   
+                    ->formatStateUsing(function ($record){
+                        if ($record->status == 1) {
+                            return 'Activo';
+                        }elseif ($record->status == 2) {
+                            return 'Inactivo';
+                        }else{
+                            return 's/n';
+                        }
+                    })                
+                    ->color(fn (string $state): string => match ($state) {
+                        '1' => 'success',
+                        '2' => 'danger',
+                    }),
             ])
             ->filters([
                 //

@@ -16,7 +16,7 @@ class ListWarehouses extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Nuevo deposito'),
+                ->label('Crear deposito'),
         ];
     }
 }

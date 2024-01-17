@@ -20,13 +20,16 @@ return new class extends Migration
             $table->unsignedBigInteger('subcategory_id');
             $table->foreign('subcategory_id')->references('id')->on('subcategories');
             $table->string('name');
+            $table->string('item');
+            $table->string('type');
             $table->string('description')->nullable();         
             $table->decimal('stock_in')->nullable();         
             $table->decimal('stock_out')->nullable();
             $table->decimal('stock')->nullable();
             $table->decimal('sell_price')->nullable();
-            $table->decimal('box_price')->nullable();
             $table->decimal('wholesale_price')->nullable();
+            $table->decimal('box_price')->nullable();
+            $table->decimal('liquidation_price')->nullable();
             $table->string('image_url')->nullable();
             $table->timestamps();
         });

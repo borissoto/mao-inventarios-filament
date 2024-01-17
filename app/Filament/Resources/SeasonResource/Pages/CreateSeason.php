@@ -11,4 +11,9 @@ class CreateSeason extends CreateRecord
     protected static string $resource = SeasonResource::class;
 
     protected static ?string $title = 'Crear Temporada';
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

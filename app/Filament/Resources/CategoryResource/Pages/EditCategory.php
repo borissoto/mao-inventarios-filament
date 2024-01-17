@@ -18,4 +18,9 @@ class EditCategory extends EditRecord
             Actions\DeleteAction::make()->label('Eliminar'),
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

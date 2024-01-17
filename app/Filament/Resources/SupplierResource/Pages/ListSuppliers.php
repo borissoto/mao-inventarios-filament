@@ -16,7 +16,7 @@ class ListSuppliers extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Nuevp Proveedor'),
+                ->label('Crear Proveedor'),
         ];
     }
 }

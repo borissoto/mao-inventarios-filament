@@ -16,7 +16,7 @@ class ListSeasons extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Nueva Temporada'),
+                ->label('Crear Temporada'),
         ];
     }
 }

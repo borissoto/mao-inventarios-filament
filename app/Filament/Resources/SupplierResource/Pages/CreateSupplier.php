@@ -11,4 +11,9 @@ class CreateSupplier extends CreateRecord
     protected static string $resource = SupplierResource::class;
 
     protected static ?string $title = 'Crear Proveedor';
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

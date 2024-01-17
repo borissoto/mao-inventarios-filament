@@ -16,7 +16,7 @@ class ListCategories extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Nueva categoria'),
+                ->label('Crear Categoria'),
         ];
     }
 }

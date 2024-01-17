@@ -19,12 +19,12 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products');
             $table->unsignedBigInteger('unit_id');
             $table->foreign('unit_id')->references('id')->on('units');
-            $table->decimal('quantity');
-            $table->decimal('pieces');
-            $table->decimal('weight');
-            $table->string('dimensions');
-            $table->string('item_no');
-            $table->string('type');
+            $table->decimal('quantity')->nullable();
+            $table->decimal('pieces')->nullable();
+            $table->decimal('total_pieces')->nullable();
+            $table->decimal('weight')->nullable();
+            $table->string('dimensions')->nullable();
+            $table->string('item_no')->nullable();
             $table->timestamp('expiration_date')->nullable();
             $table->decimal('box_cost')->nullable();
             $table->decimal('minimum_cost')->nullable();

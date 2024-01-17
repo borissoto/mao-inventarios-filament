@@ -23,6 +23,8 @@ class SupplierResource extends Resource
 
     protected static ?string $navigationGroup = 'Configuracion Almacen';
 
+    protected static ?int $navigationSort = 6;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -31,17 +33,24 @@ class SupplierResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label('Nombre')
                     ->required()
-                    ->maxLength(255),                
+                    ->maxLength(255), 
+                Forms\Components\TextInput::make('description')
+                    ->label('Observaciones')
+                    ->required()
+                    ->maxLength(255),               
                 Forms\Components\TextInput::make('mobile')
                     ->label('Telefono/Celular')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address')
                     ->label('Direccion')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('description')
-                    ->label('Observaciones')
+                    ->required(),
+                Forms\Components\Select::make('country_id')
+                    ->label('Pais')
+                    ->relationship('country', 'name')
+                    ->required(),
+                Forms\Components\TextInput::make('city')
+                    ->label('Ciudad')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -54,6 +63,12 @@ class SupplierResource extends Resource
                 //
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nombre')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('country.name')
+                    ->label('Pais')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('city')
+                    ->label('Ciudad')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('mobile')
                     ->label('Telefono/Celular')

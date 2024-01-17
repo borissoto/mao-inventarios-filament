@@ -11,4 +11,9 @@ class CreateSubcategory extends CreateRecord
     protected static string $resource = SubcategoryResource::class;
 
     protected static ?string $title = 'Crear Subcategoria';
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

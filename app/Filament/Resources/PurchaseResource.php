@@ -26,6 +26,8 @@ class PurchaseResource extends Resource
 
     protected static ?string $navigationGroup = 'Ingresos Almacen';
 
+    protected static ?int $navigationSort = 3;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -62,13 +64,13 @@ class PurchaseResource extends Resource
                     ->label('Nro Item')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('type')
-                    ->label('Abierto')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\DateTimePicker::make('expiration_date')
-                    ->label('Expira')
-                    ->required(),
+                // Forms\Components\TextInput::make('type')
+                //     ->label('Abierto')
+                //     ->required()
+                //     ->maxLength(255),
+                // Forms\Components\DateTimePicker::make('expiration_date')
+                //     ->label('Expira')
+                //     ->required(),
                 Forms\Components\TextInput::make('total_cost')
                     ->label('Costo total')
                     ->required()
@@ -77,18 +79,18 @@ class PurchaseResource extends Resource
                     ->label('Costo unitario')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('sell_price')
-                    ->label('Precio unitario')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('box_price')
-                    ->label('Precio docena')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('wholesale_price')
-                    ->label('Precio x mayor')
-                    ->required()
-                    ->numeric(),
+                // Forms\Components\TextInput::make('sell_price')
+                //     ->label('Precio unitario')
+                //     ->required()
+                //     ->numeric(),
+                // Forms\Components\TextInput::make('box_price')
+                //     ->label('Precio docena')
+                //     ->required()
+                //     ->numeric(),
+                // Forms\Components\TextInput::make('wholesale_price')
+                //     ->label('Precio x mayor')
+                //     ->required()
+                //     ->numeric(),
             ]);
     }
 
@@ -124,6 +126,11 @@ class PurchaseResource extends Resource
                     // ->summarize(Sum::make()->label('Total Piezas'))
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('total_pieces')
+                    ->label('Total Piezas' )
+                    ->summarize(Sum::make()->label('Total Piezas'))
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('weight')
                     ->label('Peso')
                     ->numeric()
@@ -134,33 +141,33 @@ class PurchaseResource extends Resource
                 Tables\Columns\TextColumn::make('item_no')
                     ->label('Nro Item')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('type')
-                    ->label('Abierto')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('expiration_date')
-                    ->label('Expira')
-                    ->dateTime()
+                // Tables\Columns\TextColumn::make('type')
+                //     ->label('Abierto')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('expiration_date')
+                //     ->label('Expira')
+                //     ->dateTime()
+                //     ->sortable(),
+                Tables\Columns\TextColumn::make('total_cost')
+                    ->label('Costo total')
+                    ->numeric()
                     ->sortable(),
-                // Tables\Columns\TextColumn::make('total_cost')
-                //     ->label('Costo total')
+                Tables\Columns\TextColumn::make('unit_price')
+                    ->label('Costo unitario')
+                    ->numeric()
+                    ->sortable(),
+                // Tables\Columns\TextColumn::make('sell_price')
+                //     ->label('Precio unitario')
                 //     ->numeric()
                 //     ->sortable(),
-                // Tables\Columns\TextColumn::make('unit_price')
-                //     ->label('Costo unitario')
+                // Tables\Columns\TextColumn::make('box_price')
+                //     ->label('Precio docena')
                 //     ->numeric()
                 //     ->sortable(),
-                Tables\Columns\TextColumn::make('sell_price')
-                    ->label('Precio unitario')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('box_price')
-                    ->label('Precio docena')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('wholesale_price')
-                    ->label('Precio x mayor')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('wholesale_price')
+                //     ->label('Precio x mayor')
+                //     ->numeric()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('')
                     ->dateTime()
@@ -176,6 +183,8 @@ class PurchaseResource extends Resource
                 //
                 GroupingGroup::make('product.name')
                 ->label('Producto'),
+                GroupingGroup::make('income_id')
+                ->label('Comprobante'),
             ])
             ->filters([
                 //
