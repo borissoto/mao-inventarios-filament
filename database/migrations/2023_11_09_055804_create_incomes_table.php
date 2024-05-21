@@ -25,6 +25,12 @@ return new class extends Migration
             $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->decimal('int_custom_cost')->nullable(); //desde aqui seria el costo total por container por ej. China
+            $table->decimal('national_custom_cost')->nullable();
+            $table->decimal('int_trans_cost')->nullable();
+            $table->decimal('national_trans_cost')->nullable();
+            $table->decimal('container_cost')->nullable();
+            $table->decimal('source_cost')->nullable();
             $table->timestamps();
         });
     }

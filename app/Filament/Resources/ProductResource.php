@@ -90,13 +90,25 @@ class ProductResource extends Resource
                     ->label('Precio Liquidacion')
                     ->numeric(),
                 Forms\Components\FileUpload::make('image_url')
+                    ->panelAspectRatio('1:1')
                     ->label('Imagen')
                     ->image()
-                    ->maxSize(512)
+                    // ->maxSize(512)
+                    ->imageEditor()
+                    ->imageEditorMode(3)
+                    ->imageEditorAspectRatios([
+                        '16:9',
+                        '4:3',
+                        '1:1',
+                    ])
+                    ->imageEditorViewportWidth('600')
+                    ->imageEditorViewportHeight('480')
+                    ->imageEditorEmptyFillColor('#666666')
                     ->imageResizeMode('cover')
-                    ->imageCropAspectRatio('16:9')
-                    ->imageResizeTargetWidth('1280')
-                    ->imageResizeTargetHeight('720')
+                    ->imageCropAspectRatio('4:3')
+                    ->imageResizeTargetWidth('800')
+                    ->imageResizeTargetHeight('600')
+                    // ->deletable(false)
                     ->required(),
             ]);
     }
@@ -195,7 +207,7 @@ class ProductResource extends Resource
                 })
                 // ->url(fn (Get $get): bool => $get('is_unit'))
                 // ->url(function(Product $record, Get $get): string { 
-                //     // $unit = $get('is_unit');
+                //     $unit = $get('is_unit');
                 //     dd($get('is_unit'));
                 //     return route('download.product', ['id' => $record, 'unit' => '0']);
                 //     })

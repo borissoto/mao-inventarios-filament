@@ -38,8 +38,11 @@ class CatalogResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table   
-            
+        return $table
+            ->contentGrid([
+                'md' => 1,
+                'xl' => 2,
+            ])
             ->columns([
                 Split::make([
                 // Tables\Columns\ImageColumn::make('image_url')
