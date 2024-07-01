@@ -96,7 +96,7 @@ class ProductResource extends Resource
                     ->label('Imagen')
                     ->image()
                     // ->maxSize(512)
-                    ->imageEditor()
+                    // ->imageEditor()
                     // ->imageEditorMode(3)
                     // ->imageEditorAspectRatios([
                     //     '16:9',
