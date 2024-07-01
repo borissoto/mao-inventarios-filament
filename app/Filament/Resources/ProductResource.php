@@ -92,22 +92,22 @@ class ProductResource extends Resource
                     ->numeric(),
                 Forms\Components\FileUpload::make('image_url')
                     // ->panelAspectRatio('1:1')
-                    // ->imagePreviewHeight('250')
+                    ->imagePreviewHeight('250')
                     ->label('Imagen')
                     ->image()
                     // ->maxSize(512)
-                    // ->imageEditor()
+                    ->imageEditor()
                     // ->imageEditorMode(3)
-                    // ->imageEditorAspectRatios([
-                    //     '16:9',
-                    //     '4:3',
-                    //     '1:1',
-                    // ])
+                    ->imageEditorAspectRatios([
+                        '16:9',
+                        '4:3',
+                        '1:1',
+                    ])
                     // ->imageEditorViewportWidth('600')
                     // ->imageEditorViewportHeight('480')
                     // ->imageEditorEmptyFillColor('#666666')
-                    // ->imageResizeMode('cover')
-                    // ->imageCropAspectRatio('4:3')
+                    ->imageResizeMode('cover')
+                    ->imageCropAspectRatio('4:3')
                     ->imageResizeTargetWidth('800')
                     ->imageResizeTargetHeight('600')
                     // ->deletable(false)
