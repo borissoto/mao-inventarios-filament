@@ -91,20 +91,20 @@ class ProductResource extends Resource
                     ->label('Precio Liquidacion')
                     ->numeric(),
                 Forms\Components\FileUpload::make('image_url')
-                    ->panelAspectRatio('1:1')
+                    // ->panelAspectRatio('1:1')
                     ->label('Imagen')
                     ->image()
                     // ->maxSize(512)
                     ->imageEditor()
-                    ->imageEditorMode(3)
+                    // ->imageEditorMode(3)
                     ->imageEditorAspectRatios([
                         '16:9',
                         '4:3',
                         '1:1',
                     ])
-                    ->imageEditorViewportWidth('600')
-                    ->imageEditorViewportHeight('480')
-                    ->imageEditorEmptyFillColor('#666666')
+                    // ->imageEditorViewportWidth('600')
+                    // ->imageEditorViewportHeight('480')
+                    // ->imageEditorEmptyFillColor('#666666')
                     ->imageResizeMode('cover')
                     ->imageCropAspectRatio('4:3')
                     ->imageResizeTargetWidth('800')
@@ -189,7 +189,8 @@ class ProductResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),    
                 
                            
-            ])           
+            ])
+            ->defaultSort('created_at', 'desc')           
             ->filters([
                 //
             ])            
