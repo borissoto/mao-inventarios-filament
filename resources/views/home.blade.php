@@ -404,43 +404,16 @@
 
       <script>
 
-        // const navbar = document.querySelector('header');
+          // Ensure the scroll position is at the top
+          window.history.scrollRestoration = 'manual';
 
-        // window.onscroll = () => {
-        //   if (window.scrollY > 100) {
-        //     navbar.classList.add('bg-gray-300');
-        //     navbar.classList.add('border-b');
-        //     navbar.classList.add('bg-color-gray');
-            
-        //   }else{
-        //     navbar.classList.remove('bg-gray-300');
-        //     navbar.classList.remove('border-b');
-        //     navbar.classList.remove('bg-color-gray');
-        //   }
-        // }
-
-        // Mobile menu
-        const hamburger = document.querySelector('#hamburger');
-        const menu = document.querySelector('#menu');
-        const hLink = document.querySelector('#hLink');
-        const faSolid = document.querySelector('.fa-solid');
-        
-
-        hamburger.addEventListener("click", ()=>{
-          menu.classList.toggle('hidden');
-          faSolid.classList.toggle('fa-bars')
-          faSolid.classList.toggle('fa-xmark')
-        })
-
-        // hLink.forEach(element => {
-        //   link.addEventListener('click', () => {
-        //     menu.classList.toggle('hidden');
-        //     faSolid.classList.toggle('fa-bars')
-        //     faSolid.classList.toggle('fa-xmark')
-        //   })
-        // });
+          // Optionally, scroll to the top on page load
+          window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+          });
       </script>
     
 
-</body>
+
+  </body>
 </html>
