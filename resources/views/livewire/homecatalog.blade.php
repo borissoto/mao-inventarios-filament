@@ -1,39 +1,40 @@
 <div>
     <div>
-        <div class="flex flex-col w-full">
-            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        {{-- <div class="flex flex-col w-full">
+            <div class="my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                    <div class="overflow-hidden  sm:rounded-lg p-2 flex flex-row justify-between">
-                        <div class="w-full">
-                            <input wire:model.live="search" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-1/2" id="search" type="text" name="search"  required="required" autofocus="autofocus" placeholder="Buscar...">
+                    <div class="overflow-hidden  sm:rounded-lg p-2 flex flex-row justify-between"> --}}
+                        <div class="flex justify-center">
+                            <input wire:model.live="search" class="border-2 rounded-md p-2 border-gray-600 
+                            focus:border-indigo-300 focus:ring focus:ring-indigo-400 focus:ring-opacity-50  block mt-1 w-1/2" 
+                            id="search" type="text" name="search"  required="required" autofocus="autofocus" placeholder="Buscar Articulo...">
                         </div>
-                        {{-- <div>
-                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-orange-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition" wire:click="create">
-                               Proveedor
-                            </button>
-                        </div> --}}
-                    </div>
+                    {{-- </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
-    <section class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+    <section class="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5 p-10">
         @forelse ($rows as $row)
         <div class="w-72 bg-white shadow rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-            <img src="{{ asset('storage/'.$row->image_url) }}" class="h-80 w-72 object-cover rounded-t-xl hover:object-scale-down"/>
+            <img src="{{ asset('storage/'.$row->image_url) }}" class="h-80 w-72 object-fit rounded-t-xl hover:object-cover bg-gray-400"/>
                 <div class="px-4 py-3 w-72">
                     <div class="text-sm font-bold text-black truncate block capitalize">{{$row->name}}</div>
                     <div class="text-sm font-bold text-black truncate block capitalize">{{$row->item}}</div>
-                    <div class="text-gray-600 mr-3 text-sm">DESC: {{$row->description}}</div>
-                    <div class="text-gray-400 mr-3 uppercase text-xs">{{$row->category->name}}</div>
-                    <div class="text-gray-400 mr-3 uppercase text-xs">{{$row->subcategory->name}}</div>
+                    <div class="text-gray-600 mr-3 text-sm">Descripcion: {{$row->description}}</div>
+                    <div class="text-gray-400 mr-3 uppercase text-xs">Categoria: {{$row->category->name}}</div>
+                    <div class="text-gray-400 mr-3 uppercase text-xs">Subcategoria: {{$row->subcategory->name}}</div>
                     <div class="justify-items-stretch">
-                        <div class="text-sm font-semibold text-black cursor-auto my-1">Stock: <span class="text-sm text-gray-600 font-light cursor-auto ml-2 float-right">{{$row->stock_in - $row->stock_out}}</span></div>
-                        <div class="text-sm font-semibold text-black cursor-auto my-1">Precio Unitario: <span class="text-sm text-gray-600 font-light cursor-auto ml-2 float-right">Bs.{{$row->sell_price}}</span></div>
+                        @if ( ($row->stock_in - $row->stock_out) > 0)
+                            <div class="text-sm font-semibold text-black cursor-auto my-1">Stock: <span class="text-sm text-green-600 font-light cursor-auto ml-2 float-right">En Stock</span></div>                            
+                        @else
+                            <div class="text-sm font-semibold text-black cursor-auto my-1">Stock: <span class="text-sm text-red-600 font-light cursor-auto ml-2 float-right">Agotado</span></div>                            
+                        @endif
+                        {{-- <div class="text-sm font-semibold text-black cursor-auto my-1">Precio Unitario: <span class="text-sm text-gray-600 font-light cursor-auto ml-2 float-right">Bs.{{$row->sell_price}}</span></div>
                         <div class="text-sm font-semibold text-black cursor-auto my-1">Precio Mayor: <span class="text-sm text-gray-600 font-light cursor-auto ml-2 float-right">Bs.{{$row->wholesale_price}}</span></div>
                         <div class="text-sm font-semibold text-black cursor-auto my-1">Precio Caja: <span class="text-sm text-gray-600 font-light cursor-auto ml-2 float-right">Bs.{{$row->box_price}}</span></div>
-                        <div class="text-sm font-semibold text-black cursor-auto my-1">Precio Liquidacion: <span class="text-sm text-gray-600 font-light cursor-auto ml-2 float-right">Bs.{{$row->liquidation_price}}</span></div>
-                        <a href="#" class="text-orange-500 hover:text-orange-700" wire:click="edit({{ $row->id }})">{{ __("Exportar PDF") }}</a>
+                        <div class="text-sm font-semibold text-black cursor-auto my-1">Precio Liquidacion: <span class="text-sm text-gray-600 font-light cursor-auto ml-2 float-right">Bs.{{$row->liquidation_price}}</span></div> --}}
+                        {{-- <a href="#" class="text-orange-500 hover:text-orange-700" wire:click="edit({{ $row->id }})">{{ __("Exportar PDF") }}</a> --}}
                     </div>
                 </div>
         </div>
@@ -43,7 +44,10 @@
         @endforelse
         
     </section>
-    <div class="p-2">
+    <div>
+        Mostrando del {{ $rows->firstItem() }} al {{ $rows->lastItem() }} de {{$rows->total()}} resultados.
+    </div>  
+    <div class="p-2 justify-items-start">
         {{ $rows->links() }}
     </div>
 

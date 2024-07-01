@@ -102,12 +102,14 @@ class PurchaseResource extends Resource
             // })
             ->columns([
                 Tables\Columns\TextColumn::make('income_id')
-                    ->label('Id Comprobante')
+                    ->label('Comp Nro')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('product.name')
                     ->label('Producto')
-                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('product.item')
+                    ->label('Nro Item Mao')
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('product.image_url')
                     ->size(80)
@@ -128,9 +130,12 @@ class PurchaseResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_pieces')
                     ->label('Total Piezas' )
-                    ->summarize(Sum::make()->label('Total Piezas'))
-                    ->numeric()
-                    ->sortable(),
+                    ->state(function (Purchase $record): float{
+                        return $record->quantity * $record->pieces;
+                    }),
+                    // ->summarize(Sum::make()->label('Total Piezas'))
+                    // ->numeric()
+                    // ->sortable(),
                 Tables\Columns\TextColumn::make('weight')
                     ->label('Peso')
                     ->numeric()
@@ -179,6 +184,7 @@ class PurchaseResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->groups([
                 //
                 GroupingGroup::make('product.name')

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('income_id');
+            $table->unsignedBigInteger('income_id')->nullable();
             $table->foreign('income_id')->references('id')->on('incomes');
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')->references('id')->on('products');
-            $table->unsignedBigInteger('unit_id');
+            $table->unsignedBigInteger('unit_id')->nullable();
             $table->foreign('unit_id')->references('id')->on('units');
             $table->decimal('quantity')->nullable();
             $table->decimal('pieces')->nullable();
@@ -25,6 +25,12 @@ return new class extends Migration
             $table->decimal('weight')->nullable();
             $table->string('dimensions')->nullable();
             $table->string('item_no')->nullable();
+            // in or out
+            $table->boolean('income')->nullable();
+            //dispatch
+            $table->decimal('quantity_out')->nullable();
+            $table->timestamp('date')->nullable();
+            //product's cost values
             $table->timestamp('expiration_date')->nullable();
             $table->decimal('box_cost')->nullable();
             $table->decimal('minimum_cost')->nullable();
@@ -40,6 +46,8 @@ return new class extends Migration
             $table->decimal('sell_price')->nullable();
             $table->decimal('box_price')->nullable();
             $table->decimal('wholesale_price')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

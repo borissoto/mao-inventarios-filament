@@ -11,28 +11,134 @@
     <!-- Tailwind -->
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet"> --}}
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
-    <link rel="stylesheet" href="{{asset('/css/style.css')}}" />
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
-
-        .font-family-karla {
-            font-family: karla;
-        }
-    </style>
-
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha512-Tn2m0TIpgVyTzzvmxLNuqbSJH3JP8jm+Cy3hvHrW7ndTDcJ1w5mBiksqDBb8GpE2ksktFvDB/ykZ0mDpsZj20w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script> --}}
+    <link rel="stylesheet" href="{{asset('css/style.css')}}"/>  
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">  --}}
+    {{-- @vite('resources/css/filament/admin/theme.css') --}}
+    {{-- @vite('resources/css/style.css') --}}
+     
+   
 </head>
-<body class="bg-white font-family-karla">
+{{-- <body class="bg-white tracking-wider"> --}}
+<body 
+  x-data="{navbarOpen: false, scrolledFromTop: false}" 
+  x-init="window.pageYOffset > 60 ? scrolledFromTop = true : scrolledFromTop = false"
+  @scroll.window="window.pageYOffset > 60 ? scrolledFromTop = true: scrolledFromTop = false"
+  :class="{'overflow-hidden': navbarOpen, 'overflow-auto': !navbarOpen }"
+  >
+  <header class="fixed w-full bg-white flex justify-between items-center px-4 md:px-12 h-24 transition-all duration-200" :class="{'h-24': !scrolledFromTop, 'h-12': scrolledFromTop}">
+    <a href="#">
+      <span class="text-blue-400 font-bold text-3xl transition-all duration-200" :class="{'text-3xl': !scrolledFromTop, 'text-2xl': scrolledFromTop}">MĀO</span>
+      <span class="text-gray-400 text-2xl transition-all duration-200" :class="{'text-2xl': !scrolledFromTop, 'text-xl': scrolledFromTop}">Importaciones</span>
+    </a>
+    <nav>
+      <button class="md:hidden" @click="navbarOpen = !navbarOpen">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <ul class="fixed left-0 right-0 min-h-screen bg-white space-y-20 text-center transform translate-x-full transition duration-200
+      md:relative md:flex md:min-h-0 md:space-y-0 md:space-x-6 md:p-0 md:translate-x-0" :class="{'translate-x-full': !navbarOpen, 'translate-x-0': navbarOpen}">
+        <li><a href="#"></a></li>
+        <li><a href="#hero" @click="navbarOpen = false" class="hover:text-blue-400 ease-in duration-200">Inicio</a></li>
+        <li><a href="#history" @click="navbarOpen = false" class="hover:text-blue-400 ease-in duration-200">Quienes Somos?</a></li>
+        <li><a href="#products" @click="navbarOpen = false" class="hover:text-blue-400 ease-in duration-200">Productos</a></li>
+        {{-- <li><a href="{{ route('home.catalog') }}"  @click="navbarOpen = false" class="hover:text-blue-400 ease-in duration-200">Productos</a></li> --}}
+        @auth
+          @php
+              $user = Auth::user();    
+          @endphp
+          <li><a href="{{ url('/admin') }}" class="bg-purple-400 text-white px-9 py-3 rounded-md hover:opacity-80 ease-in duration-200">Volver a Administracion</a></li>
+        @else 
+          <li><a href="{{ url('/login') }}" class="bg-blue-400 text-white px-9 py-3 rounded-md hover:opacity-80 ease-in duration-200">Inicio Sesion</a></li>
+        @endauth  
+
+      </ul>
+    </nav>
+  </header>
+    
+  <section id="hero" class="pt-32 pb-16 px-8 md:px-12 bg-blue-400">
+    <div class="max-w-7xl mx-auto md:flex md:items-center md:justify-between">
+       <div class="md:flex-1 md:mr-48">
+          <h1 class="font-bold text-2xl md:text-4xl text-white leading-tight">
+            ¡Desata la Diversión: Donde Cada Producto Cuenta una Historia!
+          </h1>
+          <p class="mt-4 text-base md:text-lg text-white ">
+            Descubre el Mundo de la Fantasía y el Entretenimiento. Inspira Sueños y Crea Aventuras Sin Fin.
+          </p>
+       </div>
+       <div class="md:flex-1">
+          {{-- <img
+             src="https://res.cloudinary.com/thirus/image/upload/v1632162912/logos/chat_ys7mog.svg"
+             alt="Chat with loved ones"
+          /> --}}
+          <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-3/4 md:h-3/4 rounded-3xl" src="{{asset('/img/toystore4.jpg')}}" alt="" />
+       </div>
+    </div>
+ </section>
+
+   <!-- Hero -->
+      <section id="history" class="min-h-screen pt-12">
+        {{-- <div class="container py-20 flex flex-col-reverse lg:flex-row items-center gap-12 mt-14 lg:mt-28"> --}}
+          <div class="max-w-7xl mx-auto md:flex md:items-center md:justify-between">
+          <!-- Content -->
+              <div class="md:flex-1 md:mr-48">
+              <h1 class="font-bold text-1xl md:text-4xl leading-tight">
+                Quienes Somos?
+              </h1>
+              <p class="mt-4 text-sm md:text-lg">
+                Somos una empresa lider en el mercado nacional. Fundada en 2010, 
+                  nuestra tienda de juguetes ha sido un destino querido para niños y familias en El Alto La Paz, Bolivia. 
+                  Ubicada en el corazón de la ciudad, nuestra tienda ofrece una amplia gama de juguetes, desde los 
+                  clásicos favoritos hasta las últimas tendencias. A lo largo de los años, nos hemos convertido 
+                  en una parte apreciada de la comunidad, conocida por nuestro personal amable y un ambiente acogedor. 
+                  Nuestras estanterías están llenas de juguetes educativos, figuras de acción, muñecas y juegos 
+                  que satisfacen a todas las edades. Nos enorgullecemos de ofrecer productos de alta calidad 
+                  que fomentan la creatividad y la alegría. Las coloridas exhibiciones y las secciones interactivas 
+                  hacen que comprar sea una experiencia encantadora tanto para niños como para adultos. 
+                  Eventos especiales y promociones estacionales añaden emoción, haciendo que cada visita sea única. 
+                  Nuestro compromiso con la satisfacción del cliente y la participación comunitaria nos ha ayudado 
+                  a crecer y prosperar durante la última década. Visítenos y descubra por qué somos 
+                  la tienda de juguetes preferida para la diversión y el aprendizaje.
+              </p>
+          </div>
+         
+          <!-- Image -->
+          <div class="flex justify-center flex-1 mb-10 md:mb-16 lg:mb-0">
+            <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-full md:h-full rounded-3xl" src="{{asset('/img/toystore1.jpg')}}" alt="" />
+          </div>
+        </div>
+      </section>
+      
+   <!-- FAQ -->
+   {{-- <section id="products" class="min-h-screen">
+    <div class="container py-20">
+
+    </div>
+  </section> --}}
+  <section id="products" class="min-h-screen pt-12">
+    @livewire('home-catalog' )
+  </section>
+  
+  <!-- Footer -->
+      <footer class="bg-bookmark-blue py-8">
+        <div class="container flex flex-col md:flex-row items-center">
+          <div class="flex flex-1 flex-wrap items-center justify-center md:justify-start gap-12 text-white">
+            El Alto - Bolivia
+            @by borrison
+          </div>
+          <div class="flex gap-10 mt-12 md:mt-0">
+            <li><i class="text-white text-2xl fab fa-tiktok"></i></li>
+            <li><i class="text-white text-2xl fab fa-facebook-square"></i></li>
+          </div>
+        </div>
+      </footer>
+  {{-- <main> --}}
 
     <!-- Top Bar Nav -->
-    <nav class="w-full py-4 bg-blue-800 shadow">
+    {{-- <nav class="w-full py-6 bg-orange-400 shadow">
         <div class="w-full container mx-auto flex flex-wrap items-center justify-between">
 
-            {{-- <div class="flex items-center text-lg no-underline text-white pr-6">
+            <div class="flex items-center text-lg no-underline text-white pr-6">
                 <a class="" href="#">
                     <i class="fab fa-facebook"></i>
                 </a>
@@ -43,17 +149,17 @@
                     <i class="fab fa-tiktok"></i>
                 </a>
               
-            </div> --}}
+            </div>
 
             <nav>
                 <ul class="flex items-center justify-between font-bold text-xs text-white uppercase no-underline">
-                    {{-- <li><a class="hover:text-gray-200 hover:underline px-4" href="#">Acerca</a></li> --}}
+                    <li><a class="hover:text-gray-200 hover:underline px-4" href="#">Acerca</a></li>
                     @auth
                         @php
                             $user = Auth::user();    
                         @endphp
                         
-                            <li><span>Bienvenid@  {{$user->name}}, volver a </span> <a class="hover:text-gray-200 hover:underline text-purple-200" href="{{ url('/admin') }}">Administracion </a></li>
+                            <li><span>Bienvenid@  {{$user->name}}, volver a </span> <a class="hover:text-gray-200 hover:underline text-purple-800" href="{{ url('/admin') }}">Administracion </a></li>
                         </div>
                     @else 
                         <li><a class="hover:text-gray-200 hover:underline px-4" href="{{ url('/login') }}">Inicio Sesion</a></li>
@@ -64,9 +170,9 @@
           
         </div>
 
-    </nav>
+    </nav> --}}
 
-    <header>
+    {{-- <header>
         <nav class="container flex items-center py-4 mt-4 sm:mt-12">
           <div class="py-1"><img src="/img/logo-bookmark.svg" alt="" /></div>
           <ul class="hidden sm:flex flex-1 justify-end items-center gap-12 text-bookmark-blue uppercase text-xs">
@@ -79,10 +185,10 @@
             <i class="text-2xl fas fa-bars"></i>
           </div>
         </nav>
-      </header>
+      </header> --}}
   
       <!-- Hero -->
-      <section class="relative">
+      {{-- <section class="relative">
         <div class="container flex flex-col-reverse lg:flex-row items-center gap-12 mt-14 lg:mt-28">
           <!-- Content -->
           <div class="flex flex-1 flex-col items-center lg:items-start">
@@ -90,20 +196,20 @@
               MAO Importaciones
             </h2>
             <p class="text-bookmark-grey text-lg text-center lg:text-left mb-6">
-              Somos una empres lider en el mercado nacional.
+              Somos una empresa lider en el mercado nacional.
             </p>
             <div class="flex justify-center flex-wrap gap-6">
-              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              <button class="bg-blue-500 hover:bg-purple-300 text-white font-bold py-2 px-4 rounded">
                 Android
               </button>
-              <button class="bg-blue-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">
+              <button class="bg-blue-700 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded">
                 iOS
               </button>
             </div>
           </div>
           <!-- Image -->
           <div class="flex justify-center flex-1 mb-10 md:mb-16 lg:mb-0 z-10">
-            <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-full md:h-full" src="{{asset('/img/hero-bg.png')}}" alt="" />
+            <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-full md:h-full rounded-3xl" src="{{asset('/img/toystore1.jpg')}}" alt="" />
           </div>
         </div>
         <!-- Rounded Rectangle -->
@@ -124,10 +230,10 @@
             lg:-right-36
           "
         ></div>
-      </section>
-  
+      </section> --}}
+    
       <!-- Features -->
-      <section class="bg-bookmark-white py-20 mt-20 lg:mt-60">
+      {{-- <section class="bg-bookmark-white py-20 mt-20 lg:mt-60">
         <!-- Heading -->
         <div class="sm:w-3/4 lg:w-5/12 mx-auto px-2">
           <h1 class="text-3xl text-center text-bookmark-blue">Features</h1>
@@ -210,47 +316,11 @@
             "
           ></div>
         </div>
-        <!-- Feature #3 -->
-        <div class="relative mt-20 lg:mt-52">
-          <div class="container flex flex-col lg:flex-row items-center justify-center gap-x-24">
-            <!-- Image -->
-            <div class="flex flex-1 justify-center z-10 mb-10 lg:mb-0">
-              <img
-                class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-full md:h-full"
-                src="{{ asset('/img/illustration-features-tab-3.png')}}"
-                alt=""
-              />
-            </div>
-            <!-- Content -->
-            <div class="flex flex-1 flex-col items-center lg:items-start">
-              <h1 class="text-3xl text-bookmark-blue">Share your bookmarks</h1>
-              <p class="text-bookmark-grey my-4 text-center lg:text-left sm:w-3/4 lg:w-full">
-                Easily share your bookmarks and collections with others. Create a shareable link that you can send at the
-                click of a button.
-              </p>
-              <button type="button" class="btn btn-purple hover:bg-bookmark-white hover:text-black">More Info</button>
-            </div>
-          </div>
-          <!-- Rounded Rectangle -->
-          <div
-            class="
-              hidden
-              lg:block
-              overflow-hidden
-              bg-bookmark-purple
-              rounded-r-full
-              absolute
-              h-80
-              w-2/4
-              -bottom-24
-              -left-36
-            "
-          ></div>
-        </div>
-      </section>
+       
+      </section> --}}
   
       <!-- Download -->
-      <section class="py-20 mt-20">
+      {{-- <section class="py-20 mt-20">
         <!-- Heading -->
         <div class="sm:w-3/4 lg:w-5/12 mx-auto px-2">
           <h1 class="text-3xl text-center text-bookmark-blue">Download the extension</h1>
@@ -304,45 +374,12 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> --}}
   
-      <!-- FAQ -->
-      <section class="bg-bookmark-white py-20">
-        <div class="container">
-          <!-- Heading -->
-          <div class="sm:w-3/4 lg:w-5/12 mx-auto px-2">
-            <h1 class="text-3xl text-center text-bookmark-blue">Frequently Asked Questions</h1>
-            <p class="text-center text-bookmark-grey mt-4">
-              Here are some of our FAQs. If you have any other questions you’d like answered please feel free to email us.
-            </p>
-          </div>
-          <!-- FAQ Items -->
-          <div class="flex flex-col sm:w-3/4 lg:w-5/12 mt-12 mx-auto">
-            <div class="flex items-center border-b py-4">
-              <span class="flex-1">What is a Bookmark?</span>
-              <i class="text-bookmark-purple fas fa-chevron-down"></i>
-            </div>
-            <div class="flex items-center border-b py-4">
-              <span class="flex-1">How can I request a new browser?</span>
-              <i class="text-bookmark-purple fas fa-chevron-down"></i>
-            </div>
-            <div class="flex items-center border-b py-4">
-              <span class="flex-1">Is there a mobile app?</span>
-              <i class="text-bookmark-purple fas fa-chevron-down"></i>
-            </div>
-            <div class="flex items-center border-b py-4">
-              <span class="flex-1">What about other Chromium browsers?</span>
-              <i class="text-bookmark-purple fas fa-chevron-down"></i>
-            </div>
-            <button type="button" class="mt-12 flex self-center btn btn-purple hover:bg-bookmark-white hover:text-black">
-              More Info
-            </button>
-          </div>
-        </div>
-      </section>
+    
   
       <!-- Contact Us -->
-      <section class="bg-bookmark-purple text-white py-20">
+      {{-- <section class="bg-bookmark-purple text-white py-20">
         <div class="container">
           <div class="sm:w-3/4 lg:w-2/4 mx-auto">
             <p class="font-light uppercase text-center mb-8">35,000+ ALREADY JOINED</p>
@@ -359,26 +396,50 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> --}}
   
-      <!-- Footer -->
-      <footer class="bg-bookmark-blue py-8">
-        <div class="container flex flex-col md:flex-row items-center">
-          <div class="flex flex-1 flex-wrap items-center justify-center md:justify-start gap-12">
-            <img src="{{ asset('/img/logo-bookmark-white.png')}}" alt="" />
-            <ul class="flex text-white uppercase gap-12 text-xs">
-              <li class="cursor-pointer">Features</li>
-              <li class="cursor-pointer">Pricing</li>
-              <li class="cursor-pointer">Contact</li>
-            </ul>
-          </div>
-          <div class="flex gap-10 mt-12 md:mt-0">
-            <li><i class="text-white text-2xl fab fa-twitter"></i></li>
-            <li><i class="text-white text-2xl fab fa-facebook-square"></i></li>
-          </div>
-        </div>
-      </footer>
+      
 
+    {{-- </main> --}}
+
+      <script>
+
+        // const navbar = document.querySelector('header');
+
+        // window.onscroll = () => {
+        //   if (window.scrollY > 100) {
+        //     navbar.classList.add('bg-gray-300');
+        //     navbar.classList.add('border-b');
+        //     navbar.classList.add('bg-color-gray');
+            
+        //   }else{
+        //     navbar.classList.remove('bg-gray-300');
+        //     navbar.classList.remove('border-b');
+        //     navbar.classList.remove('bg-color-gray');
+        //   }
+        // }
+
+        // Mobile menu
+        const hamburger = document.querySelector('#hamburger');
+        const menu = document.querySelector('#menu');
+        const hLink = document.querySelector('#hLink');
+        const faSolid = document.querySelector('.fa-solid');
+        
+
+        hamburger.addEventListener("click", ()=>{
+          menu.classList.toggle('hidden');
+          faSolid.classList.toggle('fa-bars')
+          faSolid.classList.toggle('fa-xmark')
+        })
+
+        // hLink.forEach(element => {
+        //   link.addEventListener('click', () => {
+        //     menu.classList.toggle('hidden');
+        //     faSolid.classList.toggle('fa-bars')
+        //     faSolid.classList.toggle('fa-xmark')
+        //   })
+        // });
+      </script>
     
 
 </body>

@@ -43,10 +43,10 @@ class IncomeResource extends Resource
                 Forms\Components\TextInput::make('code')
                     ->label('Nro')
                     ->required(),
-                Forms\Components\DatePicker::make('arrival_date')
+                Forms\Components\DatePicker::make('shipping_date')
                     ->label('Fecha Despacho Origen')
                     ->required(),
-                Forms\Components\DatePicker::make('shipping_date')
+                Forms\Components\DatePicker::make('arrival_date')
                     ->label('Fecha Ingreso Almacenes')
                     ->required(),
                 Forms\Components\Select::make('warehouse_id')

@@ -85,121 +85,119 @@ class PurchasesRelationManager extends RelationManager
                             //     ->label('Expira')    
                             //     ->required(),
                         ]),
-                    Tabs\Tab::make('Costo Origen')
-                        ->icon('heroicon-o-truck')
-                        ->schema([
-                            Forms\Components\TextInput::make('int_custom_cost')
-                                ->label('Aduana Internacional')
-                                ->live()    
-                                ->numeric(),
-                            Forms\Components\TextInput::make('national_custom_cost')
-                                ->label('Aduana Nacional')    
-                                ->live()
-                                ->numeric(),
-                            Forms\Components\TextInput::make('int_trans_cost')
-                                ->label('Transporte Internacional')
-                                ->live()
-                                ->numeric(),
-                            Forms\Components\TextInput::make('national_trans_cost')
-                                ->label('Transporte Nacional')
-                                ->live()
-                                ->numeric(),
-                            Forms\Components\TextInput::make('container_cost')
-                                ->label('Contenedor')
-                                ->live()
-                                ->numeric(),
-                            Forms\Components\Placeholder::make('total_origen')
-                                ->label('Costo Total Origen x Caja')    
-                                ->live()
-                                ->reactive()
-                                ->content(function($get){
-                                    if($get('quantity')==0){
-                                        return 'Inserte cantidad de cajas';
-                                    }else{
-                                        return ($get('int_custom_cost') + $get('national_custom_cost') + $get('int_trans_cost') + $get('national_trans_cost') + $get('container_cost'))/ $get('quantity');
-                                    }
-                                }), 
-                                Forms\Components\TextInput::make('source_cost')
-                                ->label('Costo Total Origen x Caja')
-                                ->live()
-                                ->numeric(),                           
-                        ]),
-                    Tabs\Tab::make('Precios')
-                        ->icon('heroicon-o-currency-dollar')
-                        ->schema([
-                            Section::make('Costos')
-                                ->description('Son los costos que se suman para sacar los precios a la venta')
-                                ->schema([
-                                    Forms\Components\TextInput::make('total_cost')
-                                        ->label('Costo x Caja')    
-                                        ->live()
-                                        ->numeric(),
-                                    Forms\Components\Placeholder::make('costo_unitario')
-                                        ->label('Costo x Pieza (Costo x Caja / Piezas x Caja)')   
-                                        ->live() 
-                                        ->reactive()
-                                        ->content(function($get){
-                                            if($get('total_cost') == 0 || $get('pieces') == 0){
-                                            return 0;
-                                            }else{
-                                                return $get('total_cost') / $get('pieces');
-                                            }
-                                        }),
-                                    Forms\Components\TextInput::make('unit_cost')
-                                        ->label('Costo x Pieza')
-                                        ->live()
-                                        ->numeric(),
-                                    // Forms\Components\Placeholder::make('costo_origen')
-                                    //     ->label('Costo Origen'), 
-                                        // ->content(function($get){
-                                        //     return $get('source_cost') + $get('unit_cost');
-                                        //  }),
-                                    Forms\Components\Placeholder::make('costo_minimo')
-                                        ->label('Costo Min x Pza (Costo x Pza + Costo Origen Pza)')  
-                                        ->live()  
-                                        ->content(function($get){
-                                            if($get('pieces')==0 || $get('source_cost')==0){
-                                                return 'Inserte cantidad de cajas';
-                                            }else{
-                                                return ($get('source_cost') / $get('pieces')) + $get('unit_cost');
-                                            }
-                                        }),
-                                    Forms\Components\TextInput::make('minimum_cost')
-                                        ->label('Costo Minimo x Pieza')
-                                        ->live()
-                                        ->numeric(),
-                                ])->columns(2),                           
-                            Forms\Components\TextInput::make('profit_percentage')
-                                ->label('Ganancia x Caja (Colocar Porcentaje)')
-                                ->live()
-                                ->numeric(),
-                            Section::make('Precios Venta')
-                                ->description('Son los precios que podran ser vistos por los clientes')
-                                ->schema([
-                                    Forms\Components\Placeholder::make('costo_minimo')
-                                    ->label('Precio x Pieza a la Venta')  
-                                    ->live()  
-                                    ->content(function($get){
-                                        if($get('total_cost')==0 || $get('pieces')==0 || $get('profit_percentage')==0){
-                                            return 'Inserte Costo por Caja';
-                                        }else{
-                                            return (($get('total_cost') / $get('pieces')) * $get('profit_percentage') / 100)+$get('minimum_cost').'Bs.';
-                                        }
-                                    }),                                    
-                                    // Forms\Components\TextInput::make('sell_price')
-                                    //     ->label('Precio Pieza')    
-                                    //     ->numeric(),
-                                    // Forms\Components\TextInput::make('box_price')
-                                    //     ->label('Precio Pieza Docena')    
-                                    //     ->numeric(),
-                                    // Forms\Components\TextInput::make('wholesale_price')
-                                    //     ->label('Precio Pieza x Mayor')    
-                                    //     ->numeric(),
-                                ])->columns(2)
+                    // Tabs\Tab::make('Costo Origen')
+                    //     ->icon('heroicon-o-truck')
+                    //     ->schema([
+                    //         Forms\Components\TextInput::make('int_custom_cost')
+                    //             ->label('Aduana Internacional')
+                    //             ->live()    
+                    //             ->numeric(),
+                    //         Forms\Components\TextInput::make('national_custom_cost')
+                    //             ->label('Aduana Nacional')    
+                    //             ->live()
+                    //             ->numeric(),
+                    //         Forms\Components\TextInput::make('int_trans_cost')
+                    //             ->label('Transporte Internacional')
+                    //             ->live()
+                    //             ->numeric(),
+                    //         Forms\Components\TextInput::make('national_trans_cost')
+                    //             ->label('Transporte Nacional')
+                    //             ->live()
+                    //             ->numeric(),
+                    //         Forms\Components\TextInput::make('container_cost')
+                    //             ->label('Contenedor')
+                    //             ->live()
+                    //             ->numeric(),
+                    //         Forms\Components\Placeholder::make('total_origen')
+                    //             ->label('Costo Total Origen x Caja')    
+                    //             ->live()
+                    //             ->reactive()
+                    //             ->content(function($get){
+                    //                 if($get('quantity')==0){
+                    //                     return 'Inserte cantidad de cajas';
+                    //                 }else{
+                    //                     return ($get('int_custom_cost') + $get('national_custom_cost') + $get('int_trans_cost') + $get('national_trans_cost') + $get('container_cost'))/ $get('quantity');
+                    //                 }
+                    //             }), 
+                    //             Forms\Components\TextInput::make('source_cost')
+                    //             ->label('Costo Total Origen x Caja')
+                    //             ->live()
+                    //             ->numeric(),                           
+                    //     ]),
+                    // Tabs\Tab::make('Precios')
+                    //     ->icon('heroicon-o-currency-dollar')
+                    //     ->schema([
+                    //         Section::make('Costos')
+                    //             ->description('Son los costos que se suman para sacar los precios a la venta')
+                    //             ->schema([
+                    //                 Forms\Components\TextInput::make('total_cost')
+                    //                     ->label('Costo x Caja')    
+                    //                     ->live()
+                    //                     ->numeric(),
+                    //                 Forms\Components\Placeholder::make('costo_unitario')
+                    //                     ->label('Costo x Pieza (Costo x Caja / Piezas x Caja)')   
+                    //                     ->live() 
+                    //                     ->reactive()
+                    //                     ->content(function($get){
+                    //                         if($get('total_cost') == 0 || $get('pieces') == 0){
+                    //                         return 0;
+                    //                         }else{
+                    //                             return $get('total_cost') / $get('pieces');
+                    //                         }
+                    //                     }),
+                    //                 Forms\Components\TextInput::make('unit_cost')
+                    //                     ->label('Costo x Pieza')
+                    //                     ->live()
+                    //                     ->numeric(),
+                    //                 // Forms\Components\Placeholder::make('costo_origen')
+                    //                 //     ->label('Costo Origen'), 
+                    //                     // ->content(function($get){
+                    //                     //     return $get('source_cost') + $get('unit_cost');
+                    //                     //  }),
+                    //                 Forms\Components\Placeholder::make('costo_minimo')
+                    //                     ->label('Costo Min x Pza (Costo x Pza + Costo Origen Pza)')  
+                    //                     ->live()  
+                    //                     ->content(function($get){
+                    //                         if($get('pieces')==0 || $get('source_cost')==0){
+                    //                             return 'Inserte cantidad de cajas';
+                    //                         }else{
+                    //                             return ($get('source_cost') / $get('pieces')) + $get('unit_cost');
+                    //                         }
+                    //                     }),
+                    //                 Forms\Components\TextInput::make('minimum_cost')
+                    //                     ->label('Costo Minimo x Pieza')
+                    //                     ->live()
+                    //                     ->numeric(),
+                    //             ])->columns(2),                           
+                    //         Forms\Components\TextInput::make('profit_percentage')
+                    //             ->label('Ganancia x Caja (Colocar Porcentaje)')
+                    //             ->live()
+                    //             ->numeric(),
+                    //         Section::make('Precios Venta')
+                    //             ->description('Son los precios que podran ser vistos por los clientes')
+                    //             ->schema([
+                    //                 Forms\Components\Placeholder::make('costo_minimo')
+                    //                 ->label('Precio x Pieza a la Venta')  
+                    //                 ->live()  
+                    //                 ->content(function($get){
+                    //                     if($get('total_cost')==0 || $get('pieces')==0 || $get('profit_percentage')==0){
+                    //                         return 'Inserte Costo por Caja';
+                    //                     }else{
+                    //                         return (($get('total_cost') / $get('pieces')) * $get('profit_percentage') / 100)+$get('minimum_cost').'Bs.';
+                    //                     }
+                    //                 }),                                    
+                    //                 // Forms\Components\TextInput::make('sell_price')
+                    //                 //     ->label('Precio Pieza')    
+                    //                 //     ->numeric(),
+                    //                 // Forms\Components\TextInput::make('box_price')
+                    //                 //     ->label('Precio Pieza Docena')    
+                    //                 //     ->numeric(),
+                    //                 // Forms\Components\TextInput::make('wholesale_price')
+                    //                 //     ->label('Precio Pieza x Mayor')    
+                    //                 //     ->numeric(),
+                    //             ])->columns(2)
                             
-                        ]),
-                        
-                  
+                    //     ]),
                 ])->columnSpanFull()
                 
             ])->columns(3);
@@ -212,6 +210,7 @@ class PurchasesRelationManager extends RelationManager
                     ->with('category', $model?->category->name)
                     ->with('subcategory', $model?->subcategory->name)
                     ->with('image_url', $model?->image_url)
+                    ->with('item_mao', $model?->item) 
                     ->render();
     }
 
@@ -296,13 +295,17 @@ class PurchasesRelationManager extends RelationManager
                         // $wholesale = $data['wholesale_price'];
 
                         $data['total_pieces'] = $pcs * $boxs;
+                        $totalpieces = $pcs*$boxs;
+                        // True = in, False = out (when dispatching)
+                        $data['income'] = true;
+                        $data['user_id'] = auth()->id();
 
                         
                         // cantidad total
-                        
                         $product_id = $data['product_id'];
-
                         $sumtotalpcs = Purchase::where('product_id','=',$product_id)->sum('total_pieces');
+                        $total = $sumtotalpcs + $totalpieces;
+
                         // $sumpcs = Purchase::where('product_id','=',$product_id)->sum('pieces');
                         // $sumboxs = Purchase::where('product_id','=',$product_id)->sum('quantity');
 
@@ -311,7 +314,7 @@ class PurchasesRelationManager extends RelationManager
                         // $total = $totalpcs * $totalbox;
                         // dump($pcs, $product_id, $total);
                         // Product::updateOrCreate( ['id' => $product_id], ['stock_in' => $total]);
-                        DB::table('products')->updateOrInsert(['id' => $product_id], ['stock_in'=>$sumtotalpcs]);
+                        DB::table('products')->updateOrInsert(['id' => $product_id], ['stock_in'=>$total]);
                         // DB::table('products')->updateOrInsert(['id' => $product_id], ['sell_price'=>$unit]);
                         // DB::table('products')->updateOrInsert(['id' => $product_id], ['box_price'=>$box]);
                         // DB::table('products')->updateOrInsert(['id' => $product_id], ['wholesale_price'=>$wholesale]);
@@ -327,6 +330,8 @@ class PurchasesRelationManager extends RelationManager
                         $pcs = $data['pieces'];
                         $boxs = $data['quantity'];
                         $data['total_pieces'] = $pcs * $boxs;
+                        $data['income'] = true;
+                        $data['user_id'] = auth()->id();
                         
                         // cantidad total
                         $product_id = $data['product_id'];

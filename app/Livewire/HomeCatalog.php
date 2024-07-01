@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Livewire\WithPagination;
 use Livewire\Component;
 
-class Catalog extends Component 
+class HomeCatalog extends Component 
 {
 
     use WithPagination;
@@ -50,7 +50,7 @@ class Catalog extends Component
     public function render()
     {
         $model = Model::where('name', 'like', '%'.$this->search.'%')->orWhere('item', 'like', '%'.$this->search.'%')->orWhere('description', 'like', '%'.$this->search.'%')->latest()->paginate($this->paginate);
-        return view('livewire.catalog', [
+        return view('livewire.homecatalog', [
             'rows'=> $model
         ]);
     }

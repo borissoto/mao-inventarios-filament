@@ -5,7 +5,7 @@ return [
     'actions' => [
 
         'close' => [
-            'label' => 'Cerrar',
+            'min' => 'minimo 1',
         ],
 
     ],

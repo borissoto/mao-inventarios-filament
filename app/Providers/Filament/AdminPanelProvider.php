@@ -66,11 +66,15 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 'Ingresos Almacen',
+                'Salidas Almacen',
                 'Configuracion Almacen',
             ])
             ->navigationGroups([
                 NavigationGroup::make()
                     ->label('Ingresos Almacen')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Salidas Almacen')
                     ->collapsed(),
                 NavigationGroup::make()
                      ->label('Configuracion Almacen')

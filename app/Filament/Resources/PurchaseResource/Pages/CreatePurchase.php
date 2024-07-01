@@ -21,10 +21,10 @@ class CreatePurchase extends CreateRecord
 
         // $sumpcs = Purchase::sum('pieces')->where('id', $product_id);
 
-        dump($data);
+        // dump($data);
     
         return $data;
-        dump($data);
+        // dump($data);
     }
 
     protected function handleRecordCreation(array $data): Model

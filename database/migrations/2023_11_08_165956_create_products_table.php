@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->unsignedBigInteger('subcategory_id');
+            $table->unsignedBigInteger('subcategory_id')->nullable();
             $table->foreign('subcategory_id')->references('id')->on('subcategories');
-            $table->string('name');
-            $table->string('item');
-            $table->string('type');
+            $table->string('name')->nullable();
+            $table->string('item')->nullable();
+            $table->string('type')->nullable();
             $table->string('description')->nullable();         
             $table->decimal('stock_in')->nullable();         
             $table->decimal('stock_out')->nullable();

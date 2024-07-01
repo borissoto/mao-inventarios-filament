@@ -11,6 +11,7 @@
             <div class="flex flex-col items-start">
                 <p class="text-xs leading-5">Categoria: {{ $category }}</p>
                 <p class="text-xs leading-5">Subcategoria: {{ $subcategory }}</p>
+                <p class="text-xs leading-5">Item Mao: {{ $item_mao }}</p>
             </div>
         </div>
     </div>

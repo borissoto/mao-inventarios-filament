@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
+use App\Models\Purchase;
 use App\Models\Subcategory;
 use App\Models\User;
 use Filament\Forms;
@@ -31,7 +32,7 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-gift';
 
-    protected static ?string $navigationLabel = 'Productos';
+    protected static ?string $navigationLabel = 'Productos Detallado';
 
     protected static ?string $navigationGroup = 'Ingresos Almacen';
 
@@ -115,7 +116,7 @@ class ProductResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
+        return $table           
             ->columns([
                 Tables\Columns\ImageColumn::make('image_url')
                     ->label('Imagen')
@@ -127,10 +128,23 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nombre')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('stock_in')
+                Tables\Columns\TextColumn::make('stock_in')                  
+                    ->label('Ingreso')
+                    ->numeric(),
+                Tables\Columns\TextColumn::make('stock_out')                  
+                    ->label('Egreso')
+                    ->numeric(),          
+                /** se uso getEloquentQuery para querys*/     
+                // Tables\Columns\TextColumn::make('custom_column')                  
+                //     ->label('En Almacenes')
+                //     ->numeric()
+                //     ->searchable(), 
+                Tables\Columns\TextColumn::make('custom_column')                  
                     ->label('En Almacenes')
                     ->numeric()
-                    ->searchable(),
+                    ->state(function (Product $record): float{
+                        return $record->stock_in - $record->stock_out;
+                    }),
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Categoria')
                     ->numeric()
@@ -175,7 +189,7 @@ class ProductResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),    
                 
                            
-            ])
+            ])           
             ->filters([
                 //
             ])            
@@ -253,6 +267,20 @@ class ProductResource extends Resource
         }else{
             return false;
         }
+    }
+
+    /*****Query para sumar piezas de un determinado producto */
+    public static function getEloquentQuery(): Builder
+    {        
+
+        return parent::getEloquentQuery()
+            ->select('*')
+            ->selectSub(
+                Purchase::query()
+                ->selectRaw('SUM(quantity*pieces)')
+                ->whereColumn('purchases.product_id', 'products.id'),
+                'custom_column'
+            );
     }
 
 }

@@ -28,6 +28,8 @@ class CatalogResource extends Resource
 
     protected static ?string $navigationLabel = 'Catalogo';
 
+    protected static bool $shouldRegisterNavigation = false;
+
     public static function form(Form $form): Form
     {
         return $form

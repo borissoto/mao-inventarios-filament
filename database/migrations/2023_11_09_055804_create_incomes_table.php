@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('incomes', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->string('code');
+            $table->string('type')->nullable();
+            $table->string('code')->nullable();
             $table->timestamp('shipping_date');
             $table->timestamp('arrival_date')->nullable();
-            $table->unsignedBigInteger('season_id');
+            $table->unsignedBigInteger('season_id')->nullable();
             $table->foreign('season_id')->references('id')->on('seasons');
-            $table->unsignedBigInteger('warehouse_id');
+            $table->unsignedBigInteger('warehouse_id')->nullable();
             $table->foreign('warehouse_id')->references('id')->on('warehouses');
-            $table->unsignedBigInteger('supplier_id');
+            $table->unsignedBigInteger('supplier_id')->nullable();
             $table->foreign('supplier_id')->references('id')->on('suppliers');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->decimal('int_custom_cost')->nullable(); //desde aqui seria el costo total por container por ej. China
             $table->decimal('national_custom_cost')->nullable();

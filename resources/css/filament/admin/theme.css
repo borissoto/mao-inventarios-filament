@@ -3,7 +3,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@config 'tailwind.config.js';
+@config "tailwind.config.js";
 
 td {
     border: 1px solid #e4e4e7;
