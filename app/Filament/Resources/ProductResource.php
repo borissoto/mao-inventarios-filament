@@ -92,6 +92,7 @@ class ProductResource extends Resource
                     ->numeric(),
                 Forms\Components\FileUpload::make('image_url')
                     // ->panelAspectRatio('1:1')
+                    ->imagePreviewHeight('250')
                     ->label('Imagen')
                     ->image()
                     // ->maxSize(512)
