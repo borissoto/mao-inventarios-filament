@@ -29,8 +29,12 @@
   >
   <header class="fixed w-full bg-white flex justify-between items-center px-4 md:px-12 h-24 transition-all duration-200" :class="{'h-24': !scrolledFromTop, 'h-12': scrolledFromTop}">
     <a href="#">
-      <span class="text-blue-400 font-bold text-3xl transition-all duration-200" :class="{'text-3xl': !scrolledFromTop, 'text-2xl': scrolledFromTop}">MĀO</span>
-      <span class="text-gray-400 text-2xl transition-all duration-200" :class="{'text-2xl': !scrolledFromTop, 'text-xl': scrolledFromTop}">Importaciones</span>
+      <div class="container mx-auto flex items-center">
+        <img src="{{asset('/img/logo-container.png')}}" alt="" alt="Logo" class="w-12 h-12 mr-3">
+        <span class="text-blue-400 font-bold text-3xl transition-all duration-200" :class="{'text-3xl': !scrolledFromTop, 'text-2xl': scrolledFromTop}">MĀO</span>
+        <span class="text-gray-400 text-2xl transition-all duration-200" :class="{'text-2xl': !scrolledFromTop, 'text-xl': scrolledFromTop}">Importaciones</span>
+      </div>
+      
     </a>
     <nav>
       <button class="md:hidden" @click="navbarOpen = !navbarOpen">
@@ -71,7 +75,7 @@
              src="https://res.cloudinary.com/thirus/image/upload/v1632162912/logos/chat_ys7mog.svg"
              alt="Chat with loved ones"
           /> --}}
-          <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-3/4 md:h-3/4 rounded-3xl" src="{{asset('/img/toystore4.jpg')}}" alt="" />
+          <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-3/4 md:h-3/4 rounded-3xl" src="{{asset('/img/container.png')}}" alt="" />
        </div>
     </div>
  </section>
@@ -104,7 +108,7 @@
          
           <!-- Image -->
           <div class="flex justify-center flex-1 mb-10 md:mb-16 lg:mb-0">
-            <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-full md:h-full rounded-3xl" src="{{asset('/img/toystore1.jpg')}}" alt="" />
+            <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-full md:h-full rounded-3xl" src="{{asset('/img/toystore4.jpg')}}" alt="" />
           </div>
         </div>
       </section>
