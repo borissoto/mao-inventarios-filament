@@ -19,12 +19,7 @@ class CategorySeeder extends Seeder
                 'id' => 1,
                 'name' => 'JUGUETES',
                 'description' => 'TODO TIPO DE JUGUETES',
-            ),
-            1 => array(
-                'id' => 2,
-                'name' => 'COTILLON',
-                'description' => 'TODO TIPO DE COTILLON',
-            )
+            ),           
         )
     );
     }

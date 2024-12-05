@@ -21,11 +21,6 @@ class UnitSeeder extends Seeder
                     'name' => 'CAJA',
                     'abbreviation' => 'CJ',
                 ),
-                1 => array(
-                    'id' => 2,
-                    'name' => 'BOLSA',
-                    'abbreviation' => 'BLS',
-                )
             )
         );
     }

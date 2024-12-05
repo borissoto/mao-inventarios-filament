@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
         //
         User::create([
             'id' => 1,
-            'name' => 'Mile',
-            'email' => 'admin@mao.com',
+            'name' => 'Milenka',
+            'email' => 'admin@maobol.com',
             'password' => Hash::make('123456'),
             'forename' => 'Mile',
             'p_surname' => 'ApPaterno',
